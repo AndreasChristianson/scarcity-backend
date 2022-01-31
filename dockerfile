@@ -1,11 +1,15 @@
 FROM maven:3-openjdk-17 as builder
 COPY src src/
 COPY pom.xml .
-RUN mvn package
+RUN mvn --batch-mode -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn package
+RUN java -Djarmode=layertools -jar target/*.jar extract
 
 FROM openjdk:17-jdk-alpine as runner
-
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
-COPY --from=builder /target/*.jar /app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+workdir app
+COPY --from=builder spring-boot-loader ./
+COPY --from=builder dependencies ./
+COPY --from=builder snapshot-dependencies /app.jar
+COPY --from=builder application /app.jar
+ENTRYPOINT ["java","org.springframeework.boot.loader.JarLauncher"]
