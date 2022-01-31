@@ -10,6 +10,6 @@ USER spring:spring
 workdir app
 COPY --from=builder spring-boot-loader ./
 COPY --from=builder dependencies ./
-COPY --from=builder snapshot-dependencies /app.jar
-COPY --from=builder application /app.jar
+COPY --from=builder snapshot-dependencies ./
+COPY --from=builder application ./
 ENTRYPOINT ["java","org.springframework.boot.loader.JarLauncher"]
