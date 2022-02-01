@@ -14,8 +14,9 @@ CREATE TABLE game_object (
     ,parent        uuid REFERENCES game_object (id)
     ,x             float
     ,y             float
-    ,durability    float
-    ,trigger_time  bigint
+
+--    ,durability    float
+--    ,trigger_time  bigint
 );
 
 CREATE INDEX ON game_object(parent);
@@ -23,21 +24,22 @@ CREATE INDEX ON game_object(parent);
 CREATE TABLE modifier (
     id             uuid PRIMARY KEY
     ,template      uuid NOT NULL REFERENCES template (id)
-    ,target        uuid REFERENCES game_object (id)
-    ,value         float NOT NULL
+    ,parent        uuid REFERENCES game_object (id)
     ,dtype         text NOT NULL
+
+    ,value         float
 );
-CREATE INDEX ON modifier(target);
+CREATE INDEX ON modifier(parent);
 
 CREATE TABLE change (
     id             uuid PRIMARY KEY
-    ,target        uuid NOT NULL REFERENCES game_object (id)
+    ,parent        uuid NOT NULL REFERENCES game_object (id)
     ,game_time     bigint NOT NULL
     ,stamp         timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
     ,dtype         text NOT NULL
 
-    ,parent        uuid
-    ,modifier      uuid
+    ,source        uuid REFERENCES game_object (id)
+    ,modifier      uuid REFERENCES modifier (id)
 );
 
-CREATE INDEX ON change(target);
+CREATE INDEX ON change(parent);

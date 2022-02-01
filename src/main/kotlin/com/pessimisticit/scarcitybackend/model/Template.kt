@@ -1,16 +1,15 @@
 package com.pessimisticit.scarcitybackend.model
 
 import org.hibernate.annotations.GenericGenerator
-import java.net.URI
 import java.net.URL
 import java.util.*
 import javax.persistence.*
 
 @Entity
-@Table(name="template")
+@Table(name = "template")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="dtype", discriminatorType = DiscriminatorType.STRING)
-abstract class Template(
+@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
+abstract class Template<T : GameObject<T>>(
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(
@@ -18,10 +17,12 @@ abstract class Template(
         strategy = "org.hibernate.id.UUIDGenerator",
     )
     open val id: UUID,
-    @Column(name="icon")
+    @Column(name = "icon")
     open val icon: URL,
-    @Column(name="description")
+    @Column(name = "description")
     open val description: String,
-    @Column(name="label")
+    @Column(name = "label")
     open val label: String,
-)
+) {
+    abstract fun generate(): T;
+}

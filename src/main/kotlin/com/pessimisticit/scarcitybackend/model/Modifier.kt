@@ -6,10 +6,10 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
-@Table(name = "game_object")
+@Table(name = "modifier")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
-abstract class GameObject<T : GameObject<T>>(
+abstract class Modifier<T : GameObject<T>>(
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(
@@ -22,16 +22,11 @@ abstract class GameObject<T : GameObject<T>>(
     @JoinColumn(name = "template", nullable = false, updatable = false)
     override val template: Template<T>,
 
-    @ManyToOne(optional = true)
-    @JoinColumn(name = "parent", nullable = true, updatable = true)
-    open val parent: GameObject<*>?,
-) : HasTemplate<T>  {
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
-    open val children = mutableListOf<GameObject<*>>()
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "parent", nullable = false, updatable = false)
+    open val parent: GameObject<*>,
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
-    open val changes = mutableListOf<Change>()
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
-    open val modifiers = mutableListOf<Modifier<T>>()
+    @Column(name = "value")
+    open val value: Double?,
+):HasTemplate<T> {
 }
