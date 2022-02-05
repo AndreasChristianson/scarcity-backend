@@ -5,6 +5,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.jdbc.DataSourceBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration
+import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer
+import org.springframework.web.servlet.config.annotation.CorsRegistry
 import java.net.URI
 import javax.sql.DataSource
 
@@ -27,4 +30,15 @@ class DataSourceConfig {
         return dsb.build()
     }
 
+}
+
+@Configuration
+class SpringDataRestCORSConfig : RepositoryRestConfigurer {
+    override fun configureRepositoryRestConfiguration(config: RepositoryRestConfiguration, cors: CorsRegistry) {
+        cors.addMapping("/api/*")
+            .allowedOrigins("*")
+            .allowedMethods("GET", "PUT", "DELETE", "POST")
+            .allowCredentials(false)
+            .maxAge(600)
+    }
 }

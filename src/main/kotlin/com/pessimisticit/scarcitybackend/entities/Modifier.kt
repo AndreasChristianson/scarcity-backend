@@ -1,5 +1,6 @@
 package com.pessimisticit.scarcitybackend.entities
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.pessimisticit.scarcitybackend.entities.templates.HasTemplate
 import com.pessimisticit.scarcitybackend.entities.templates.Template
 import org.hibernate.annotations.GenericGenerator
@@ -17,6 +18,7 @@ abstract class Modifier<T : Template<T>> : HasTemplate {
         name = "uuid",
         strategy = "org.hibernate.id.UUIDGenerator",
     )
+//    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     open var id: UUID? = null
 
     @ManyToOne(optional = false, targetEntity = Template::class)
