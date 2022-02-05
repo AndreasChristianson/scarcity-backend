@@ -1,11 +1,9 @@
-ALTER TABLE template
-  ADD COLUMN bind_type TEXT
-  ,ADD COLUMN volume FLOAT
-  ,ADD COLUMN weight FLOAT
-  ,ADD COLUMN damage_per_turn FLOAT
-  ,ADD COLUMN damage_shape TEXT
-  ,ADD COLUMN damage_type TEXT
-  ,ADD COLUMN slot TEXT
-  ,ADD COLUMN swing_duration BIGINT
-  ,ADD COLUMN ready_time BIGINT
-;
+ALTER TABLE template ADD COLUMN bind_type TEXT;
+  ALTER TABLE template ADD COLUMN volume FLOAT;
+  ALTER TABLE template ADD COLUMN weight FLOAT;
+  ALTER TABLE template ADD COLUMN damage_per_turn FLOAT;
+  ALTER TABLE template ADD COLUMN damage_shape TEXT;
+  ALTER TABLE template ADD COLUMN damage_type TEXT;
+  ALTER TABLE template ADD COLUMN slot TEXT;
+  ALTER TABLE template ADD COLUMN swing_duration BIGINT;
+  ALTER TABLE template ADD COLUMN ready_time BIGINT;

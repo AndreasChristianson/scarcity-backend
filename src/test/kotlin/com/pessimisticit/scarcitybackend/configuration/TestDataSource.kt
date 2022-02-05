@@ -17,7 +17,7 @@ class TestDataSource {
 		fun embeddedDataSource(): DriverManagerDataSource {
 				val driverManagerDataSource = DriverManagerDataSource()
 				driverManagerDataSource.setDriverClassName("org.h2.Driver")
-				driverManagerDataSource.url = "jdbc:h2:mem:testdb;IGNORECASE=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1"
+				driverManagerDataSource.url = "jdbc:h2:mem:testdb;IGNORECASE=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;MODE=Postgresql"
 				return driverManagerDataSource
 			}
 
