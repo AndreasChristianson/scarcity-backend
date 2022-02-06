@@ -14,5 +14,6 @@ COPY --from=builder dependencies ./
 COPY --from=builder snapshot-dependencies ./
 RUN true
 COPY --from=builder application ./
+ARG COMMIT
 ENV COMMIT=${COMMIT}
 ENTRYPOINT ["java","-XX:+PrintFlagsFinal","org.springframework.boot.loader.JarLauncher"]
