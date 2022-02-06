@@ -13,4 +13,4 @@ COPY --from=builder dependencies ./
 COPY --from=builder snapshot-dependencies ./
 RUN true
 COPY --from=builder application ./
-ENTRYPOINT ["java","org.springframework.boot.loader.JarLauncher"]
+ENTRYPOINT ["java","-XX:MaxRAM=256m","-XX:+PrintFlagsFinal","org.springframework.boot.loader.JarLauncher"]
