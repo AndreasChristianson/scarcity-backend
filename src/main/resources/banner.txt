@@ -9,7 +9,6 @@
    \  \:\/:/     \  \:\           /  /:/      |  |:|\/     \  \:\        \  \:\       /__/:/        /__/:/
     \  \::/       \  \:\         /__/:/       |__|:|~       \  \:\        \__\/       \__\/         \__\/
      \__\/         \__\/         \__\/         \__\|         \__\/
-Backend
 
-${application.title} ${application.formatted-version}
+${application.title} ${application.version}
 Spring Boot: ${spring-boot.version}

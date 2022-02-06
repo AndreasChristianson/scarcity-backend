@@ -10,9 +10,10 @@
 	</parent>
 	<groupId>com.pessimistic-it</groupId>
 	<artifactId>scarcity-backend</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>${revision}</version>
 	<name>scarcity-backend</name>
 	<properties>
+		<revision>local dev</revision>
 		<java.version>16</java.version>
 		<kotlin.version>1.6.10</kotlin.version>
 	</properties>

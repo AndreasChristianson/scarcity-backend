@@ -1,7 +1,8 @@
 FROM maven:3-openjdk-17 as builder
+ARG COMMIT
 COPY src src/
 COPY pom.xml .
-RUN mvn --batch-mode -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn package
+RUN mvn --batch-mode -Drevision=${COMMIT} -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn package
 RUN java -Djarmode=layertools -jar target/*.jar extract
 
 FROM openjdk:17-jdk-alpine as runner
@@ -13,4 +14,5 @@ COPY --from=builder dependencies ./
 COPY --from=builder snapshot-dependencies ./
 RUN true
 COPY --from=builder application ./
+ENV COMMIT=${COMMIT}
 ENTRYPOINT ["java","-XX:+PrintFlagsFinal","org.springframework.boot.loader.JarLauncher"]
