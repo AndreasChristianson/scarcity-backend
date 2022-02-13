@@ -14,8 +14,8 @@ class WeaponValuesProvider : ValueProvider<Template<Weapon>> {
         yield(
             Weapon().apply {
                 description = """
-                        | A short, broad sabre with a slightly curved blade sharpened on the cutting edge,
-                        | and a hilt featuring a solid cupped guard.
+                        |A short, broad sabre with a slightly curved blade sharpened on the cutting edge,
+                        |and a hilt featuring a solid cupped guard.
                     """.trimMargin()
                 label = "Cutlass"
                 icon =
@@ -38,9 +38,9 @@ class WeaponValuesProvider : ValueProvider<Template<Weapon>> {
         yield(
             Weapon().apply {
                 description = """
-                        | A two-edged sword with a tapered point for stabbing during thrusting.
-                        | A solid grip is provided by a knobbed hilt with ridges for the fingers.
-                        | The previous owner's name is engraved on the blade.
+                        |A two-edged sword with a tapered point for stabbing during thrusting.
+                        |A solid grip is provided by a knobbed hilt with ridges for the fingers.
+                        |The previous owner's name is engraved on the blade.
                     """.trimMargin()
                 label = "Gladius"
                 flavor = "Quemadmodum gladius neminem occidit, occidentis telum est."

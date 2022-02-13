@@ -5,28 +5,28 @@ import com.pessimisticit.scarcitybackend.entities.changes.Created
 import com.pessimisticit.scarcitybackend.entities.templates.Rarity
 import com.pessimisticit.scarcitybackend.entities.templates.TagValue
 import com.pessimisticit.scarcitybackend.entities.templates.equipment.Equipment
-import com.pessimisticit.scarcitybackend.repositories.ItemGenerationRepository
+import com.pessimisticit.scarcitybackend.repositories.TemplateRepository
 import org.springframework.data.repository.CrudRepository
+import org.springframework.stereotype.Service
 import java.util.*
 import javax.transaction.Transactional
 import kotlin.random.Random
 
-
-abstract class TemplateGenerator<T:Equipment<T>>  {
-
-    abstract val itemGenerationRepository: ItemGenerationRepository<T>
-    abstract val gameObjectRepo: CrudRepository<GameObject<*>, UUID>
-    abstract val timeService: TimeService
-
+@Service
+class TemplateGenerator(
+    val templateRepository: TemplateRepository,
+    val gameObjectRepo: CrudRepository<GameObject<*>, UUID>,
+    val timeService: TimeService
+) {
     @Transactional
-    open fun generate(
+    open fun <T : Equipment<T>> generate(
         parent: GameObject<*>? = null,
         itemLevelMin: Double = 0.0,
         itemLevelMax: Double = Double.POSITIVE_INFINITY,
         minRarity: Rarity = Rarity.COMMON,
         requiredTag: TagValue? = null
     ): GameObject<T>? {
-        val potentials = itemGenerationRepository.getPotentials(
+        val potentials = templateRepository.getPotentials<T>(
             Rarity.values().filter { it.relativeWeight <= minRarity.relativeWeight }.toList(),
             itemLevelMin,
             itemLevelMax,
@@ -44,7 +44,7 @@ abstract class TemplateGenerator<T:Equipment<T>>  {
             this.children = emptyList()
             this.parent = parent
         }
-        with(created){
+        with(created) {
             source = parent
             gameTime = timeService.getGameTime
             this.parent = newObject

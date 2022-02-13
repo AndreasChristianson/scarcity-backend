@@ -10,8 +10,6 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "game_object")
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-//@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 class GameObject<T : Template<T>> {
     @Id
     @GeneratedValue(generator = "uuid")

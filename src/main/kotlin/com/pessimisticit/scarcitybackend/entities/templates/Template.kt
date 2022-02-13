@@ -3,7 +3,7 @@ package com.pessimisticit.scarcitybackend.entities.templates
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.pessimisticit.scarcitybackend.configuration.converters.UriConverter
-import org.hibernate.annotations.GenericGenerator
+import org.springframework.hateoas.server.core.Relation
 import java.net.URI
 import java.util.*
 import javax.persistence.*
@@ -11,7 +11,8 @@ import javax.persistence.*
 @Entity
 @Table(name = "template")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING, length = 80)
+@Relation("templates")
 abstract class Template<T : Template<T>> {
     @Id
     open lateinit var id: UUID
@@ -25,7 +26,6 @@ abstract class Template<T : Template<T>> {
 
     open var flavor: String? = null
 
-    @JsonIgnore
     @ManyToMany
     @JoinTable(
         name = "template_tags",
@@ -35,6 +35,7 @@ abstract class Template<T : Template<T>> {
     open lateinit var _tags: Set<Tag>
 
     var tags: Collection<TagValue>
+        @JsonIgnore
         get() = run { _tags.map { it.tag } }
         set(value) {
             _tags = value.map { Tag(it) }.toSet()
