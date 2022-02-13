@@ -20,11 +20,11 @@ class GameObjectValuesProvider(
             id = UUID.fromString("00000000-0000-0000-0000-000000000000")
         }
         with(bigBang) {
+            id = UUID.fromString("00000000-0000-0000-0000-000000000000")
             parent = universe
             gameTime = 0
             source = universe
         }
         yield(universe)
-
     }
 }

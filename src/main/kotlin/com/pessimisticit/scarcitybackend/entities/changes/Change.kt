@@ -16,12 +16,8 @@ import javax.persistence.*
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 abstract class Change {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(
-        name = "uuid",
-        strategy = "org.hibernate.id.UUIDGenerator",
-    )
-    open var id: UUID? = null
+
+    open var id: UUID = UUID.randomUUID()
 
     @ManyToOne(targetEntity = GameObject::class)
     @JoinColumn

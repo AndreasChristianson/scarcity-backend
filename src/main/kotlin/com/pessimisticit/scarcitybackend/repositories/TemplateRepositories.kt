@@ -31,7 +31,7 @@ interface TemplateRepository : CrudRepository<Template<*>, UUID> {
     ): Collection<T>
 }
 
-interface WeaponRepository : CrudRepository<Weapon, UUID> {
+interface WeaponTemplateRepository : CrudRepository<Weapon, UUID> {
 }
 
 interface UniverseTemplateRepository : CrudRepository<Universe, UUID> {
