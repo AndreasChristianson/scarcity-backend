@@ -9,14 +9,11 @@ CREATE TABLE template (
 CREATE TABLE game_object (
     id             uuid PRIMARY KEY
     ,template_id   uuid NOT NULL REFERENCES template (id)
---    ,dtype         text NOT NULL
-
-    ,parent_id     uuid REFERENCES game_object (id) NOT NULL
+    ,parent_id     uuid NOT NULL REFERENCES game_object (id)
     ,x             float
     ,y             float
 
 --    ,durability    float
---    ,trigger_time  bigint
 );
 
 CREATE INDEX ON game_object(parent_id);
