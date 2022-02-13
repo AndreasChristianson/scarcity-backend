@@ -1,6 +1,7 @@
 package com.pessimisticit.scarcitybackend.entities.templates
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.pessimisticit.scarcitybackend.configuration.converters.UriConverter
 import org.hibernate.annotations.GenericGenerator
 import java.net.URI
@@ -13,28 +14,32 @@ import javax.persistence.*
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 abstract class Template<T : Template<T>> {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(
-        name = "uuid",
-        strategy = "org.hibernate.id.UUIDGenerator",
-    )
-    open var id: UUID? = null
+    open lateinit var id: UUID
 
-    @Column( nullable = false)
     @Convert(converter = UriConverter::class)
     open lateinit var icon: URI
 
-    @Column(nullable = false)
     open lateinit var description: String
 
-    @Column(nullable = false)
     open lateinit var label: String
 
-    @ElementCollection(targetClass = Tag::class)
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "template_tag")
-    @Column(name = "tag")
-    open lateinit var tags: Collection<Tag>
+    open var flavor: String? = null
 
-//    abstract fun generate(): GameObject<T>
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+        name = "template_tags",
+        joinColumns = [JoinColumn(name = "tags_id")],
+        inverseJoinColumns = [JoinColumn(name = "template_id")]
+    )
+    open lateinit var _tags: Set<Tag>
+
+    var tags: Collection<TagValue>
+        get() = run { _tags.map { it.tag } }
+        set(value) {
+            _tags = value.map { Tag(it) }.toSet()
+        }
+
+    @Enumerated(EnumType.STRING)
+    open var rarity: Rarity = Rarity.COMMON
 }

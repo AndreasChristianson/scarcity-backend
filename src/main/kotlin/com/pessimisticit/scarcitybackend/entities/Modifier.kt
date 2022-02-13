@@ -1,7 +1,8 @@
 package com.pessimisticit.scarcitybackend.entities
 
-import com.pessimisticit.scarcitybackend.entities.templates.HasTemplate
+import com.fasterxml.jackson.annotation.JsonBackReference
 import com.pessimisticit.scarcitybackend.entities.templates.Template
+import com.pessimisticit.scarcitybackend.entities.templates.modifiers.ModifierTemplate
 import org.hibernate.annotations.GenericGenerator
 import java.util.*
 import javax.persistence.*
@@ -10,7 +11,7 @@ import javax.persistence.*
 @Table(name = "modifier")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
-abstract class Modifier<T : Template<T>> : HasTemplate {
+abstract class Modifier<V : Template<V>,T:ModifierTemplate<V,*>> {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(
@@ -19,18 +20,14 @@ abstract class Modifier<T : Template<T>> : HasTemplate {
     )
     open var id: UUID? = null
 
-    @ManyToOne(optional = false, targetEntity = Template::class)
-    @JoinColumn(name = "template", nullable = false, updatable = false)
-    override lateinit var template: Template<T>
+    @ManyToOne(targetEntity = Template::class)
+    @JoinColumn
+    open lateinit var template: ModifierTemplate<V,*>
 
-    @ManyToOne(optional = false, targetEntity = GameObject::class)
-    @JoinColumn(name = "parent", nullable = false, updatable = false)
-    open lateinit var parent: GameObject<*>
+    @ManyToOne(targetEntity = GameObject::class)
+    @JoinColumn
+    @JsonBackReference
+    open lateinit var parent: GameObject<V>
 
-    @Column(name = "value")
-    open var value: Double? = null;
-
-    open fun modify(toBeModified: GameObject<T>): GameObject<T> {
-        return toBeModified;
-    }
+    abstract fun modify(toBeModified: GameObject<V>): GameObject<V>
 }

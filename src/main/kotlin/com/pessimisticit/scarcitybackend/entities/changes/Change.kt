@@ -1,6 +1,8 @@
 package com.pessimisticit.scarcitybackend.entities.changes
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.pessimisticit.scarcitybackend.entities.GameObject
 import com.pessimisticit.scarcitybackend.entities.Modifier
 import org.hibernate.annotations.GenericGenerator
@@ -21,24 +23,27 @@ abstract class Change {
     )
     open var id: UUID? = null
 
-    @ManyToOne(optional = false, targetEntity = GameObject::class)
-    @JoinColumn(name = "parent", nullable = false, updatable = true)
+    @ManyToOne(targetEntity = GameObject::class)
+    @JoinColumn
+    @JsonBackReference
     open lateinit var parent: GameObject<*>
 
-    @Column(name = "game_time", nullable = false)
+    @Column
     open var gameTime: Long = 0
 
-    @ManyToOne(optional = true, targetEntity = Modifier::class)
-    @JoinColumn(name = "modifier", nullable = true, updatable = true)
-    open var modifier: Modifier<*>? = null
+    @ManyToOne(targetEntity = Modifier::class)
+    @JoinColumn
+    @JsonBackReference
+    open var modifier: Modifier<*, *>? = null
 
     @ManyToOne(optional = true, targetEntity = GameObject::class)
-    @JoinColumn(name = "source", nullable = true, updatable = true)
+    @JoinColumn
+    @JsonBackReference
     open var source: GameObject<*>? = null
 
-    @Column(name = "stamp", nullable = false)
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
-    open lateinit var stamp: Date
+    open var stamp: Date = Date()
 
     abstract fun getChangeMessage(): String;
 

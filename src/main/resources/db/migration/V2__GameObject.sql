@@ -1,6 +1,6 @@
 CREATE TABLE template (
     id             uuid PRIMARY KEY
-    ,icon          text NOT NULL
+    ,icon          text
     ,description   text NOT NULL
     ,label         text NOT NULL
     ,dtype         text NOT NULL
@@ -8,10 +8,10 @@ CREATE TABLE template (
 
 CREATE TABLE game_object (
     id             uuid PRIMARY KEY
-    ,template      uuid NOT NULL REFERENCES template (id)
-    ,dtype         text NOT NULL
+    ,template_id   uuid NOT NULL REFERENCES template (id)
+--    ,dtype         text NOT NULL
 
-    ,parent        uuid REFERENCES game_object (id)
+    ,parent_id     uuid REFERENCES game_object (id)
     ,x             float
     ,y             float
 
@@ -19,27 +19,25 @@ CREATE TABLE game_object (
 --    ,trigger_time  bigint
 );
 
-CREATE INDEX ON game_object(parent);
+CREATE INDEX ON game_object(parent_id);
 
 CREATE TABLE modifier (
     id             uuid PRIMARY KEY
-    ,template      uuid NOT NULL REFERENCES template (id)
-    ,parent        uuid REFERENCES game_object (id)
+    ,template_id   uuid NOT NULL REFERENCES template (id)
+    ,parent_id     uuid REFERENCES game_object (id)
     ,dtype         text NOT NULL
-
-    ,value         float
 );
-CREATE INDEX ON modifier(parent);
+CREATE INDEX ON modifier(parent_id);
 
 CREATE TABLE change (
     id             uuid PRIMARY KEY
-    ,parent        uuid NOT NULL REFERENCES game_object (id)
+    ,parent_id     uuid NOT NULL REFERENCES game_object (id)
     ,game_time     bigint NOT NULL
     ,stamp         timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
     ,dtype         text NOT NULL
 
-    ,source        uuid REFERENCES game_object (id)
-    ,modifier      uuid REFERENCES modifier (id)
+    ,source_id      uuid REFERENCES game_object (id)
+    ,modifier_id    uuid REFERENCES modifier (id)
 );
 
-CREATE INDEX ON change(parent);
+CREATE INDEX ON change(parent_id);
