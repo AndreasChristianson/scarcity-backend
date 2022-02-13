@@ -20,7 +20,7 @@ class TemplateGenerator(
 ) {
     @Transactional
     open fun <T : Equipment<T>> generate(
-        parent: GameObject<*>? = null,
+        parent: GameObject<*>,
         itemLevelMin: Double = 0.0,
         itemLevelMax: Double = Double.POSITIVE_INFINITY,
         minRarity: Rarity = Rarity.COMMON,

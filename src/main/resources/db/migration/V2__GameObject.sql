@@ -11,7 +11,7 @@ CREATE TABLE game_object (
     ,template_id   uuid NOT NULL REFERENCES template (id)
 --    ,dtype         text NOT NULL
 
-    ,parent_id     uuid REFERENCES game_object (id)
+    ,parent_id     uuid REFERENCES game_object (id) NOT NULL
     ,x             float
     ,y             float
 

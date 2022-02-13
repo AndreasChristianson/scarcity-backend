@@ -1,7 +1,9 @@
 package com.pessimisticit.scarcitybackend.entities.templates
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import com.pessimisticit.scarcitybackend.configuration.converters.UriConverter
 import org.springframework.hateoas.server.core.Relation
 import java.net.URI
@@ -32,6 +34,7 @@ abstract class Template<T : Template<T>> {
         joinColumns = [JoinColumn(name = "tags_id")],
         inverseJoinColumns = [JoinColumn(name = "template_id")]
     )
+    @JsonManagedReference
     open lateinit var _tags: Set<Tag>
 
     var tags: Collection<TagValue>

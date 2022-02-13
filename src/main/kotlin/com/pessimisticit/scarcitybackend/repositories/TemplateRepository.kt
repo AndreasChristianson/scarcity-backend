@@ -4,12 +4,10 @@ import com.pessimisticit.scarcitybackend.entities.templates.Rarity
 import com.pessimisticit.scarcitybackend.entities.templates.Template
 import com.pessimisticit.scarcitybackend.entities.templates.Universe
 import com.pessimisticit.scarcitybackend.entities.templates.equipment.weapons.Weapon
-import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.rest.core.annotation.RepositoryRestResource
 import org.springframework.data.rest.core.annotation.RestResource
-import org.springframework.web.bind.annotation.RequestMapping
 import java.util.*
 
 @RepositoryRestResource(path = "templates")
@@ -36,5 +34,5 @@ interface TemplateRepository : CrudRepository<Template<*>, UUID> {
 interface WeaponRepository : CrudRepository<Weapon, UUID> {
 }
 
-interface UniverseRepository : CrudRepository<Universe, UUID> {
+interface UniverseTemplateRepository : CrudRepository<Universe, UUID> {
 }

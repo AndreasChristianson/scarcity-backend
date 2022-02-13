@@ -12,26 +12,21 @@ import javax.persistence.*
 @Table(name = "game_object")
 class GameObject<T : Template<T>> {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(
-        name = "uuid",
-        strategy = "org.hibernate.id.UUIDGenerator",
-    )
-    var id: UUID? = null
+    var id: UUID? = UUID.randomUUID()
 
     @ManyToOne(optional = false, targetEntity = Template::class)
     lateinit var template: Template<T>
 
     @ManyToOne(optional = true)
     @JsonBackReference
-    var parent: GameObject<*>? = null
+    lateinit var parent: GameObject<*>
 
     @JsonManagedReference
     @OneToMany(mappedBy = "parent", targetEntity = GameObject::class)
     lateinit var children: Collection<GameObject<*>>
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "parent", targetEntity = Change::class, cascade = [CascadeType.PERSIST])
+    @OneToMany(mappedBy = "parent", targetEntity = Change::class, cascade = [CascadeType.ALL])
     lateinit var changes: Collection<Change>
 
     @JsonManagedReference

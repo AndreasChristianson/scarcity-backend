@@ -38,10 +38,12 @@ class DbLoader {
                     id = UUID.nameUUIDFromBytes(label.toByteArray())
                 } }
                 .forEach { templateRepository.save(it) }
+
             log.info("${gameObjectProviders.size} game object providers found for loading")
             gameObjectProviders
                 .flatMap { it.getValues }
-                .forEach { gameObjectRepository.save(it) }
+                .map { gameObjectRepository.save(it) }
+                .forEach{log.info("saved [$it]")}
 
         }
     }
