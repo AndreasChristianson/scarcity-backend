@@ -20,6 +20,7 @@ class GameObjectGenerator(
 ) {
     @Transactional
     open fun <T : Equipment<T>> generate(
+        entityClass: Class<T>,
         parent: GameObject<*>,
         itemLevelMin: Double = 0.0,
         itemLevelMax: Double = Double.POSITIVE_INFINITY,
@@ -27,19 +28,13 @@ class GameObjectGenerator(
         requiredTags: Collection<TagValue> = emptyList()
     ): GameObject<T>? {
         val requestedRarities = Rarity.values().filter { it.relativeWeight <= minRarity.relativeWeight }.toList()
-        val potentials = if (requiredTags.isNotEmpty())
-            templateRepository.getPotentials(
-                itemLevelMin,
-                itemLevelMax,
-                requestedRarities,
-                requiredTags,
-            )
-        else
-            templateRepository.getPotentials<T>(
-                itemLevelMin,
-                itemLevelMax,
-                requestedRarities,
-            )
+        val potentials = templateRepository.getPotentialTemplates(
+            entityClass,
+            itemLevelMin,
+            itemLevelMax,
+            minRarity,
+            requiredTags,
+        ).toList()
         if (potentials.isEmpty()) {
             return null;
         }

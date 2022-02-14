@@ -23,6 +23,7 @@ class GenerationController(
 
     ): ResponseEntity<GameObject<Weapon>> {
         val result = generator.generate<Weapon>(
+            Weapon::class.java,
             gameObjectRepository.getUniverse()
         ) ?: return ResponseEntity.badRequest().build()
         val link = entityLinks.linkForItemResource(GameObject::class.java, result.id!!)
