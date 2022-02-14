@@ -1,7 +1,6 @@
 package com.pessimisticit.scarcitybackend.entities.templates
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import com.pessimisticit.scarcitybackend.configuration.converters.UriConverter
@@ -15,7 +14,7 @@ import javax.persistence.*
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING, length = 80)
 @Relation("templates")
-abstract class Template<T : Template<T>> {
+abstract class Template<T : Template<T>> : HasRelativeRarity {
     @Id
     open lateinit var id: UUID
 
@@ -45,5 +44,5 @@ abstract class Template<T : Template<T>> {
         }
 
     @Enumerated(EnumType.STRING)
-    open var rarity: Rarity = Rarity.COMMON
+    override var rarity: Rarity = Rarity.COMMON
 }

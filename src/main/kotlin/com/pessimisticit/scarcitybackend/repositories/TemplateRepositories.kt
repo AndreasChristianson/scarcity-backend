@@ -1,6 +1,7 @@
 package com.pessimisticit.scarcitybackend.repositories
 
 import com.pessimisticit.scarcitybackend.entities.templates.Rarity
+import com.pessimisticit.scarcitybackend.entities.templates.TagValue
 import com.pessimisticit.scarcitybackend.entities.templates.Template
 import com.pessimisticit.scarcitybackend.entities.templates.Universe
 import com.pessimisticit.scarcitybackend.entities.templates.equipment.weapons.Weapon
@@ -16,18 +17,36 @@ interface TemplateRepository : CrudRepository<Template<*>, UUID> {
     fun findOneByLabelIgnoreCase(label: String): Template<*>?
 
     @RestResource(exported = false)
-    @Query("""
-        SELECT t FROM Template t 
-        LEFT JOIN t._tags tags 
-        WHERE t.rarity in (?1)
-        AND t.itemLevel between ?2 and ?3
-        AND (tags.tag = ?4 or ?4 is null)
-        """)
-    fun <T>getPotentials(
-        requiredRarities: Collection<Rarity>,
+    @Query(
+        """
+        SELECT distinct t
+        FROM Template t
+        JOIN t._tags tag
+        WHERE t.rarity IN (?3)
+        AND t.itemLevel BETWEEN ?1 AND ?2
+        AND (tag.tag in(?4))
+        """
+    )
+    fun <T> getPotentials(
         itemLevelMin: Double,
         itemLevelMax: Double,
-        requiredTag: String?
+        requiredRarities: Collection<Rarity>,
+        requiredTag: Collection<TagValue>,
+    ): Collection<T>
+
+    @Query(
+        """
+        SELECT distinct t
+        FROM Template t
+        JOIN t._tags tag
+        WHERE t.rarity IN (?3)
+        AND t.itemLevel BETWEEN ?1 AND ?2
+        """
+    )
+    fun <T> getPotentials(
+        itemLevelMin: Double,
+        itemLevelMax: Double,
+        requiredRarities: Collection<Rarity>,
     ): Collection<T>
 }
 

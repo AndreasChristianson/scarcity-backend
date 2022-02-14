@@ -10,6 +10,9 @@ import java.util.*
 @RepositoryRestResource
 interface GameObjectRepository : CrudRepository<GameObject<*>, UUID> {
 
-    @Query("select u from GameObject u where u.id = '00000000-0000-0000-0000-000000000000' ")
+    @Query("""
+        select u from GameObject u
+        where u.id = '00000000-0000-0000-0000-000000000000'
+        """)
     fun getUniverse(): GameObject<Universe>
 }

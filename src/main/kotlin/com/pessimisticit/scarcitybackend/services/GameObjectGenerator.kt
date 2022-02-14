@@ -10,13 +10,13 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Service
 import java.util.*
 import javax.transaction.Transactional
-import kotlin.random.Random
 
 @Service
-class TemplateGenerator(
+class GameObjectGenerator(
     val templateRepository: TemplateRepository,
     val gameObjectRepo: CrudRepository<GameObject<*>, UUID>,
-    val timeService: TimeService
+    val timeService: TimeService,
+    val roller: RollerService
 ) {
     @Transactional
     open fun <T : Equipment<T>> generate(
@@ -24,18 +24,26 @@ class TemplateGenerator(
         itemLevelMin: Double = 0.0,
         itemLevelMax: Double = Double.POSITIVE_INFINITY,
         minRarity: Rarity = Rarity.COMMON,
-        requiredTag: TagValue? = null
+        requiredTags: Collection<TagValue> = emptyList()
     ): GameObject<T>? {
-        val potentials = templateRepository.getPotentials<T>(
-            Rarity.values().filter { it.relativeWeight <= minRarity.relativeWeight }.toList(),
-            itemLevelMin,
-            itemLevelMax,
-            requiredTag?.name
-        )
+        val requestedRarities = Rarity.values().filter { it.relativeWeight <= minRarity.relativeWeight }.toList()
+        val potentials = if (requiredTags.isNotEmpty())
+            templateRepository.getPotentials(
+                itemLevelMin,
+                itemLevelMax,
+                requestedRarities,
+                requiredTags,
+            )
+        else
+            templateRepository.getPotentials<T>(
+                itemLevelMin,
+                itemLevelMax,
+                requestedRarities,
+            )
         if (potentials.isEmpty()) {
             return null;
         }
-        val template = potentials.toList()[Random.nextInt(potentials.size)]
+        val template = roller.selectByRarity(potentials)
         val created = Created()
         val newObject = GameObject<T>().apply {
             this.template = template

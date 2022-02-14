@@ -6,6 +6,4 @@ enum class Rarity(val relativeWeight: Int) {
     SCARCE(50),
     RARE(10),
     EXTRAORDINARY(1),
-
-
 }

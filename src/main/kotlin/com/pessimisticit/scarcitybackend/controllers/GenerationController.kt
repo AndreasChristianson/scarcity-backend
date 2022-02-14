@@ -1,11 +1,9 @@
 package com.pessimisticit.scarcitybackend.controllers
 
 import com.pessimisticit.scarcitybackend.entities.GameObject
-import com.pessimisticit.scarcitybackend.entities.templates.Universe
 import com.pessimisticit.scarcitybackend.entities.templates.equipment.weapons.Weapon
 import com.pessimisticit.scarcitybackend.repositories.GameObjectRepository
-import com.pessimisticit.scarcitybackend.repositories.UniverseTemplateRepository
-import com.pessimisticit.scarcitybackend.services.TemplateGenerator
+import com.pessimisticit.scarcitybackend.services.GameObjectGenerator
 import org.springframework.hateoas.server.EntityLinks
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RequestMapping
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping(path = ["/generate"])
 class GenerationController(
-    val generator: TemplateGenerator,
+    val generator: GameObjectGenerator,
     val gameObjectRepository: GameObjectRepository,
     val entityLinks:EntityLinks
 ) {
