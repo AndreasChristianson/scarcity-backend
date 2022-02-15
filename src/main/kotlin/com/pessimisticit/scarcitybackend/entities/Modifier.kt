@@ -3,7 +3,6 @@ package com.pessimisticit.scarcitybackend.entities
 import com.fasterxml.jackson.annotation.JsonBackReference
 import com.pessimisticit.scarcitybackend.entities.templates.Template
 import com.pessimisticit.scarcitybackend.entities.templates.modifiers.ModifierTemplate
-import org.hibernate.annotations.GenericGenerator
 import java.util.*
 import javax.persistence.*
 
@@ -11,18 +10,13 @@ import javax.persistence.*
 @Table(name = "modifier")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
-abstract class Modifier<V : Template<V>,T:ModifierTemplate<V,*>> {
+abstract class Modifier<V : Template<V>, T : ModifierTemplate<V, *>> {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(
-        name = "uuid",
-        strategy = "org.hibernate.id.UUIDGenerator",
-    )
-    open var id: UUID? = null
+    open var id: UUID? = UUID.randomUUID()
 
     @ManyToOne(targetEntity = Template::class)
     @JoinColumn
-    open lateinit var template: ModifierTemplate<V,*>
+    open lateinit var template: ModifierTemplate<V, *>
 
     @ManyToOne(targetEntity = GameObject::class)
     @JoinColumn

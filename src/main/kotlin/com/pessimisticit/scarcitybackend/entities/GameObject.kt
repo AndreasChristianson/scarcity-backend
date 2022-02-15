@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import com.pessimisticit.scarcitybackend.entities.changes.Change
 import com.pessimisticit.scarcitybackend.entities.templates.Template
-import org.hibernate.annotations.GenericGenerator
 import java.util.*
 import javax.persistence.*
 

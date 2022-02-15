@@ -3,16 +3,13 @@ package com.pessimisticit.scarcitybackend.repositories
 import com.pessimisticit.scarcitybackend.entities.templates.Rarity
 import com.pessimisticit.scarcitybackend.entities.templates.TagValue
 import com.pessimisticit.scarcitybackend.entities.templates.Template
-import org.springframework.data.rest.core.annotation.RestResource
 import java.util.stream.Stream
 import javax.persistence.EntityManager
 
 
 class TemplateGeneratorRepositoryImpl(
-//    private val sessionFactory: SessionFactory,
     private val entityManager: EntityManager
 ) : TemplateGeneratorRepository {
-    @RestResource(exported = false)
     override fun <T : Template<T>> getPotentialTemplates(
         entityClass: Class<T>,
         itemLevelMin: Double,
@@ -29,11 +26,11 @@ class TemplateGeneratorRepositoryImpl(
                 entityManager
                     .createQuery(
                         """
-                                SELECT t
-                                FROM ${entityClass.name} t 
-                                WHERE t.rarity IN (:validRarities)
-                                AND t.itemLevel BETWEEN :itemLevelMin AND :itemLevelMax
-                                """, entityClass
+                        SELECT t
+                        FROM ${entityClass.name} t 
+                        WHERE t.rarity IN (:validRarities)
+                        AND t.itemLevel BETWEEN :itemLevelMin AND :itemLevelMax
+                        """, entityClass
                     )
             else ->
                 entityManager

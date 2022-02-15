@@ -1,19 +1,16 @@
 package com.pessimisticit.scarcitybackend.entities
 
-import org.hibernate.annotations.GenericGenerator
 import java.util.*
-import javax.persistence.*
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.Id
+import javax.persistence.Table
 
 @Entity
 @Table(name = "game_time")
 class Time {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(
-        name = "uuid",
-        strategy = "org.hibernate.id.UUIDGenerator",
-    )
-    open var id: UUID? = null
+    open var id: UUID? = UUID.randomUUID()
 
     @Column
     open var gameTime: Long = 0

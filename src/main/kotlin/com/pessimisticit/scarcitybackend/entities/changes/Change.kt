@@ -2,13 +2,10 @@ package com.pessimisticit.scarcitybackend.entities.changes
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference
-import com.fasterxml.jackson.annotation.JsonIgnore
 import com.pessimisticit.scarcitybackend.entities.GameObject
 import com.pessimisticit.scarcitybackend.entities.Modifier
-import org.hibernate.annotations.GenericGenerator
 import java.util.*
 import javax.persistence.*
-
 
 @Entity
 @Table(name = "change")
@@ -16,7 +13,6 @@ import javax.persistence.*
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 abstract class Change {
     @Id
-
     open var id: UUID = UUID.randomUUID()
 
     @ManyToOne(targetEntity = GameObject::class)
