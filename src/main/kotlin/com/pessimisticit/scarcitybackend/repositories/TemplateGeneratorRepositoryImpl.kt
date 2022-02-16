@@ -1,12 +1,14 @@
 package com.pessimisticit.scarcitybackend.repositories
 
-import com.pessimisticit.scarcitybackend.entities.templates.Rarity
-import com.pessimisticit.scarcitybackend.entities.templates.TagValue
+import com.pessimisticit.scarcitybackend.constants.Rarity
+import com.pessimisticit.scarcitybackend.constants.TagValue
 import com.pessimisticit.scarcitybackend.entities.templates.Template
+import org.springframework.stereotype.Repository
 import java.util.stream.Stream
 import javax.persistence.EntityManager
 
 
+@Repository
 class TemplateGeneratorRepositoryImpl(
     private val entityManager: EntityManager
 ) : TemplateGeneratorRepository {
@@ -16,7 +18,7 @@ class TemplateGeneratorRepositoryImpl(
         itemLevelMax: Double,
         minRarity: Rarity,
         requiredTags: Collection<TagValue>
-    ): Stream<T> {
+    ): Stream<out T> {
         val validRarities = Rarity.values()
             .filter { it.relativeWeight <= minRarity.relativeWeight }
             .toList()

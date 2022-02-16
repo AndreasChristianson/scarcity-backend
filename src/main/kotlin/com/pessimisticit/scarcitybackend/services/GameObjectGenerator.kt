@@ -1,11 +1,11 @@
 package com.pessimisticit.scarcitybackend.services
 
+import com.pessimisticit.scarcitybackend.constants.Rarity
+import com.pessimisticit.scarcitybackend.constants.TagValue
 import com.pessimisticit.scarcitybackend.entities.GameObject
 import com.pessimisticit.scarcitybackend.entities.changes.Created
-import com.pessimisticit.scarcitybackend.entities.templates.Rarity
-import com.pessimisticit.scarcitybackend.entities.templates.TagValue
 import com.pessimisticit.scarcitybackend.entities.templates.Template
-import com.pessimisticit.scarcitybackend.repositories.TemplateRepository
+import com.pessimisticit.scarcitybackend.repositories.TemplateGeneratorRepository
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Service
 import java.util.*
@@ -13,7 +13,7 @@ import javax.transaction.Transactional
 
 @Service
 class GameObjectGenerator(
-    val templateRepository: TemplateRepository,
+    val templateRepository: TemplateGeneratorRepository,
     val gameObjectRepo: CrudRepository<GameObject<*>, UUID>,
     val timeService: TimeService,
     val roller: RollerService

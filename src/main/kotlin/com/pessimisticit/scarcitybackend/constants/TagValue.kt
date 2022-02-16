@@ -1,4 +1,4 @@
-package com.pessimisticit.scarcitybackend.entities.templates
+package com.pessimisticit.scarcitybackend.constants
 
 enum class TagValue {
     AQUATIC,

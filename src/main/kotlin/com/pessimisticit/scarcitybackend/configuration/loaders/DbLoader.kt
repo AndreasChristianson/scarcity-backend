@@ -1,8 +1,8 @@
 package com.pessimisticit.scarcitybackend.configuration.loaders
 
+import com.pessimisticit.scarcitybackend.constants.TagValue
 import com.pessimisticit.scarcitybackend.entities.GameObject
 import com.pessimisticit.scarcitybackend.entities.templates.Tag
-import com.pessimisticit.scarcitybackend.entities.templates.TagValue
 import com.pessimisticit.scarcitybackend.entities.templates.Template
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

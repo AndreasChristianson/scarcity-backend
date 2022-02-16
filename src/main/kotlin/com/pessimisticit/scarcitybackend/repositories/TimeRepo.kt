@@ -2,7 +2,7 @@ package com.pessimisticit.scarcitybackend.repositories
 
 import com.pessimisticit.scarcitybackend.entities.Time
 import org.springframework.stereotype.Component
-import java.util.UUID
+import java.util.*
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 

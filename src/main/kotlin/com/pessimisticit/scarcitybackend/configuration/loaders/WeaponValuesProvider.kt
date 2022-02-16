@@ -1,9 +1,7 @@
 package com.pessimisticit.scarcitybackend.configuration.loaders
 
-import com.pessimisticit.scarcitybackend.entities.templates.Rarity
-import com.pessimisticit.scarcitybackend.entities.templates.TagValue
-import com.pessimisticit.scarcitybackend.entities.templates.equipment.BindType
-import com.pessimisticit.scarcitybackend.entities.templates.equipment.weapons.*
+import com.pessimisticit.scarcitybackend.constants.*
+import com.pessimisticit.scarcitybackend.entities.templates.WeaponTemplate
 import org.springframework.stereotype.Component
 import java.net.URI
 

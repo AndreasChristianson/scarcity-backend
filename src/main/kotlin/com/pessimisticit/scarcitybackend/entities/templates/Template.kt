@@ -4,6 +4,8 @@ package com.pessimisticit.scarcitybackend.entities.templates
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import com.pessimisticit.scarcitybackend.configuration.converters.UriConverter
+import com.pessimisticit.scarcitybackend.constants.Rarity
+import com.pessimisticit.scarcitybackend.constants.TagValue
 import org.springframework.hateoas.server.core.Relation
 import java.net.URI
 import java.util.*

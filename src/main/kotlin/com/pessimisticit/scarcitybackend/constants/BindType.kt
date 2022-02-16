@@ -1,4 +1,4 @@
-package com.pessimisticit.scarcitybackend.entities.templates.equipment
+package com.pessimisticit.scarcitybackend.constants
 
 enum class BindType {
     BIND_ON_PICKUP,

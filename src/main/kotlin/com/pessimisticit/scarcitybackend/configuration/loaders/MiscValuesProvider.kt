@@ -1,6 +1,6 @@
 package com.pessimisticit.scarcitybackend.configuration.loaders
 
-import com.pessimisticit.scarcitybackend.entities.templates.Rarity
+import com.pessimisticit.scarcitybackend.constants.Rarity
 import com.pessimisticit.scarcitybackend.entities.templates.Template
 import com.pessimisticit.scarcitybackend.entities.templates.UniverseTemplate
 import org.springframework.stereotype.Component

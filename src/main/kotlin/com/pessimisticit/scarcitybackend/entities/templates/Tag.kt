@@ -2,8 +2,7 @@ package com.pessimisticit.scarcitybackend.entities.templates
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonManagedReference
+import com.pessimisticit.scarcitybackend.constants.TagValue
 import java.util.*
 import javax.persistence.*
 

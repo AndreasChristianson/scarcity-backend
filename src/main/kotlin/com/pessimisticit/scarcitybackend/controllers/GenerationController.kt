@@ -1,7 +1,7 @@
 package com.pessimisticit.scarcitybackend.controllers
 
 import com.pessimisticit.scarcitybackend.entities.GameObject
-import com.pessimisticit.scarcitybackend.entities.templates.equipment.EquipmentTemplate
+import com.pessimisticit.scarcitybackend.entities.templates.EquipmentTemplate
 import com.pessimisticit.scarcitybackend.repositories.GameObjectRepository
 import com.pessimisticit.scarcitybackend.services.GameObjectGenerator
 import org.springframework.hateoas.server.EntityLinks

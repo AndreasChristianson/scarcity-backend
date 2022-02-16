@@ -1,6 +1,6 @@
-package com.pessimisticit.scarcitybackend.entities.templates.equipment
+package com.pessimisticit.scarcitybackend.entities.templates
 
-import com.pessimisticit.scarcitybackend.entities.templates.Template
+import com.pessimisticit.scarcitybackend.constants.BindType
 import javax.persistence.Entity
 import javax.persistence.EnumType
 import javax.persistence.Enumerated

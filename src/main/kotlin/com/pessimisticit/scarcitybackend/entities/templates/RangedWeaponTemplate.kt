@@ -1,4 +1,4 @@
-package com.pessimisticit.scarcitybackend.entities.templates.equipment.weapons
+package com.pessimisticit.scarcitybackend.entities.templates
 
 import javax.persistence.Entity
 

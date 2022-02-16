@@ -1,4 +1,4 @@
-package com.pessimisticit.scarcitybackend.entities.templates
+package com.pessimisticit.scarcitybackend.constants
 
 enum class Rarity(val relativeWeight: Int) {
     COMMON(1000),

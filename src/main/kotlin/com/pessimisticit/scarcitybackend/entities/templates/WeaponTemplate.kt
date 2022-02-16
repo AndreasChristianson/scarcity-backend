@@ -1,14 +1,14 @@
-package com.pessimisticit.scarcitybackend.entities.templates.equipment.weapons
+package com.pessimisticit.scarcitybackend.entities.templates
 
-import com.pessimisticit.scarcitybackend.combat.TURN_DURATION
-import com.pessimisticit.scarcitybackend.entities.templates.equipment.EquipmentTemplate
+import com.pessimisticit.scarcitybackend.constants.*
+import com.pessimisticit.scarcitybackend.interfaces.Weapon
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
 
 @Entity
-open class WeaponTemplate: EquipmentTemplate() {
+open class WeaponTemplate : EquipmentTemplate(), Weapon {
     open var damagePerTurn: Double = 0.0
 
     @Enumerated(EnumType.STRING)

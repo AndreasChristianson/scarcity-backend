@@ -2,7 +2,7 @@ package com.pessimisticit.scarcitybackend.entities.templates.modifiers
 
 import com.pessimisticit.scarcitybackend.entities.GameObject
 import com.pessimisticit.scarcitybackend.entities.templates.Template
-import javax.persistence.*
+import javax.persistence.Entity
 
 @Entity
 abstract class ModifierTemplate<T :Template> : Template() {

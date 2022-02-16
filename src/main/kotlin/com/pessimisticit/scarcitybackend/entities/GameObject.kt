@@ -31,4 +31,8 @@ class GameObject<T : Template> {
     @JsonManagedReference
     @OneToMany(mappedBy = "parent", targetEntity = Modifier::class)
     lateinit var modifiers: Collection<Modifier<T>>
+
+//    val computed: T by lazy {
+//        modifiers.fold(T)
+//    }
 }

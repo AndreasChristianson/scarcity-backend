@@ -1,4 +1,4 @@
-package com.pessimisticit.scarcitybackend.entities.templates.equipment.armors
+package com.pessimisticit.scarcitybackend.constants
 
 enum class ArmorSlot {
     CHEST, BRACER, BELT, LEGS, FEET, HANDS, FINGER, NECK, HEAD, SHOULDERS
