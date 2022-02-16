@@ -19,10 +19,10 @@ class DbLoader {
 
     @Bean
     fun initDb(
-        templateRepository: CrudRepository<Template<*>, UUID>,
+        templateRepository: CrudRepository<Template, UUID>,
         gameObjectRepository: CrudRepository<GameObject<*>, UUID>,
         tagRepo: CrudRepository<Tag, UUID>,
-        templateProviders: List<ValueProvider<Template<*>>>,
+        templateProviders: List<ValueProvider<out Template>>,
         gameObjectProviders: List<ValueProvider<GameObject<*>>>
     ): CommandLineRunner {
         return CommandLineRunner { _ ->

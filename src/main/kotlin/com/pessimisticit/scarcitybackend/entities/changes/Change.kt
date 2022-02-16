@@ -25,7 +25,7 @@ abstract class Change {
     @ManyToOne(targetEntity = Modifier::class)
     @JoinColumn
     @JsonBackReference
-    open var modifier: Modifier<*, *>? = null
+    open var modifier: Modifier<*>? = null
 
     @ManyToOne(optional = true, targetEntity = GameObject::class)
     @JoinColumn

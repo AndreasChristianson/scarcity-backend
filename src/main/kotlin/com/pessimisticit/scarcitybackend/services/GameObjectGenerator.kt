@@ -5,7 +5,6 @@ import com.pessimisticit.scarcitybackend.entities.changes.Created
 import com.pessimisticit.scarcitybackend.entities.templates.Rarity
 import com.pessimisticit.scarcitybackend.entities.templates.TagValue
 import com.pessimisticit.scarcitybackend.entities.templates.Template
-import com.pessimisticit.scarcitybackend.entities.templates.equipment.Equipment
 import com.pessimisticit.scarcitybackend.repositories.TemplateRepository
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Service
@@ -20,7 +19,7 @@ class GameObjectGenerator(
     val roller: RollerService
 ) {
     @Transactional
-    open fun <T : Template<T>> generate(
+    open fun <T : Template> generate(
         entityClass: Class<T>,
         parent: GameObject<*>,
         itemLevelMin: Double = 0.0,

@@ -3,7 +3,6 @@ package com.pessimisticit.scarcitybackend.repositories
 import com.pessimisticit.scarcitybackend.entities.templates.Rarity
 import com.pessimisticit.scarcitybackend.entities.templates.TagValue
 import com.pessimisticit.scarcitybackend.entities.templates.Template
-import com.pessimisticit.scarcitybackend.entities.templates.equipment.Equipment
 import java.util.stream.Stream
 import javax.persistence.EntityManager
 
@@ -11,7 +10,7 @@ import javax.persistence.EntityManager
 class TemplateGeneratorRepositoryImpl(
     private val entityManager: EntityManager
 ) : TemplateGeneratorRepository {
-    override fun <T : Template<T>> getPotentialTemplates(
+    override fun <T : Template> getPotentialTemplates(
         equipmentClass: Class<T>,
         itemLevelMin: Double,
         itemLevelMax: Double,

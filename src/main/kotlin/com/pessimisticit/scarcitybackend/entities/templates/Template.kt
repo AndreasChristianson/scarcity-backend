@@ -14,7 +14,7 @@ import javax.persistence.*
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING, length = 80)
 @Relation("templates")
-abstract class Template<T : Template<T>> : HasRelativeRarity {
+abstract class Template : HasRelativeRarity {
     @Id
     open lateinit var id: UUID
 
@@ -28,19 +28,14 @@ abstract class Template<T : Template<T>> : HasRelativeRarity {
     open var flavor: String? = null
 
     @ManyToMany
-    @JoinTable(
-        name = "template_tags",
-        joinColumns = [JoinColumn(name = "tags_id")],
-        inverseJoinColumns = [JoinColumn(name = "template_id")]
-    )
     @JsonManagedReference
-    open lateinit var _tags: Set<Tag>
+    open lateinit var tag: Set<Tag>
 
-    var tags: Collection<TagValue>
+    var tagValues: Collection<TagValue>
         @JsonIgnore
-        get() = run { _tags.map { it.tag } }
+        get() = run { tag.map { it.tag } }
         set(value) {
-            _tags = value.map { Tag(it) }.toSet()
+            tag = value.map { Tag(it) }.toSet()
         }
 
     @Enumerated(EnumType.STRING)

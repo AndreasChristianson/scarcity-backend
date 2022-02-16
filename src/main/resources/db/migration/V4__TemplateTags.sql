@@ -3,8 +3,8 @@ CREATE TABLE tag (
     ,tag         text NOT NULL
 );
 
-CREATE TABLE template_tags (
+CREATE TABLE template_tag (
     template_id  uuid NOT NULL
-    ,tags_id     uuid NOT NULL
-    ,PRIMARY KEY (template_id, tags_id)
+    ,tag_id     uuid NOT NULL
+    ,PRIMARY KEY (template_id, tag_id)
 );

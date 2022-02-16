@@ -18,6 +18,6 @@ class Tag(
     var tag: TagValue = value
 
     @JsonBackReference
-    @ManyToMany(targetEntity = Template::class, mappedBy = "_tags")
-    lateinit var templates: Collection<Template<*>>
+    @ManyToMany(targetEntity = Template::class, mappedBy = "tag")
+    lateinit var template: Collection<Template>
 }

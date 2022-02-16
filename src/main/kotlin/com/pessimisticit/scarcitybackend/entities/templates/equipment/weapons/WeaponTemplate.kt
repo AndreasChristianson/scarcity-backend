@@ -1,30 +1,30 @@
 package com.pessimisticit.scarcitybackend.entities.templates.equipment.weapons
 
-import com.pessimisticit.scarcitybackend.entities.templates.equipment.Equipment
-import org.springframework.hateoas.server.core.Relation
+import com.pessimisticit.scarcitybackend.combat.TURN_DURATION
+import com.pessimisticit.scarcitybackend.entities.templates.equipment.EquipmentTemplate
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
 
 @Entity
-open class Weapon<T:Weapon<T>> : Equipment<T>() {
-    var damagePerTurn: Double = 0.0
+open class WeaponTemplate: EquipmentTemplate() {
+    open var damagePerTurn: Double = 0.0
 
     @Enumerated(EnumType.STRING)
-    lateinit var damageShape: DamageShape
+    open lateinit var damageShape: DamageShape
 
     @Enumerated(EnumType.STRING)
-    lateinit var damageType: DamageType
+    open lateinit var damageType: DamageType
 
-    var swingDuration: Long = 0 //ms
+    open var swingDuration: Long = 0 //ms
 
-    var readyDuration: Long = 0 //ms
+    open var readyDuration: Long = 0 //ms
 
     @Enumerated(EnumType.STRING)
-    lateinit var slot: WeaponSlot
+    open lateinit var slot: WeaponSlot
 
-    var maxRange: Double = 0.0 //meters
+    open var maxRange: Double = 0.0 //meters
 
     open val damagePerSwing
         get() = run {
@@ -34,5 +34,5 @@ open class Weapon<T:Weapon<T>> : Equipment<T>() {
         }
 
     @Column(name = "type")
-    lateinit var weaponType: WeaponType
+    open lateinit var weaponType: WeaponType
 }

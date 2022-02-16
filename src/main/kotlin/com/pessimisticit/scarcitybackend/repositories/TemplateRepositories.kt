@@ -1,19 +1,18 @@
 package com.pessimisticit.scarcitybackend.repositories
 
 import com.pessimisticit.scarcitybackend.entities.templates.Template
-import com.pessimisticit.scarcitybackend.entities.templates.Universe
-import com.pessimisticit.scarcitybackend.entities.templates.equipment.weapons.Weapon
+import com.pessimisticit.scarcitybackend.entities.templates.UniverseTemplate
+import com.pessimisticit.scarcitybackend.entities.templates.equipment.weapons.WeaponTemplate
 import org.springframework.data.repository.CrudRepository
-import org.springframework.data.rest.core.annotation.RepositoryRestResource
 import java.util.*
 
-@RepositoryRestResource(path = "templates")
-interface TemplateRepository : CrudRepository<Template<*>, UUID>, TemplateGeneratorRepository {
-    fun findOneByLabelIgnoreCase(label: String): Template<*>?
+//@RepositoryRestResource(path = "templates")
+interface TemplateRepository : CrudRepository<Template, UUID>, TemplateGeneratorRepository {
+    fun findOneByLabelIgnoreCase(label: String): Template?
 }
 
-interface WeaponTemplateRepository : CrudRepository<Weapon<*>, UUID> {
+interface WeaponTemplateRepository : CrudRepository<WeaponTemplate, UUID> {
 }
 
-interface UniverseTemplateRepository : CrudRepository<Universe, UUID> {
+interface UniverseTemplateRepository : CrudRepository<UniverseTemplate, UUID> {
 }

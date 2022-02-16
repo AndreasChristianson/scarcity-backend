@@ -2,17 +2,16 @@ package com.pessimisticit.scarcitybackend.configuration.loaders
 
 import com.pessimisticit.scarcitybackend.entities.templates.Rarity
 import com.pessimisticit.scarcitybackend.entities.templates.TagValue
-import com.pessimisticit.scarcitybackend.entities.templates.Template
 import com.pessimisticit.scarcitybackend.entities.templates.equipment.BindType
 import com.pessimisticit.scarcitybackend.entities.templates.equipment.weapons.*
 import org.springframework.stereotype.Component
 import java.net.URI
 
 @Component
-class WeaponValuesProvider : ValueProvider<Template<*>> {
-    override val getValues: Sequence<Template<*>> = sequence {
+class WeaponValuesProvider : ValueProvider<WeaponTemplate> {
+    override val getValues: Sequence<WeaponTemplate> = sequence {
         yield(
-            Weapon().apply {
+            WeaponTemplate().apply {
                 description = """
                         |A short, broad sabre with a slightly curved blade sharpened on the cutting edge,
                         |and a hilt featuring a solid cupped guard.
@@ -32,11 +31,11 @@ class WeaponValuesProvider : ValueProvider<Template<*>> {
                 baseLevel = 10.0
                 rarity = Rarity.COMMON
                 weaponType = WeaponType.SWORD
-                tags = listOf(TagValue.AGE_OF_SAIL)
+                tagValues = listOf(TagValue.AGE_OF_SAIL)
             }
         )
         yield(
-            Weapon().apply {
+            WeaponTemplate().apply {
                 description = """
                         |A two-edged sword with a tapered point for stabbing during thrusting.
                         |A solid grip is provided by a knobbed hilt with ridges for the fingers.
@@ -58,7 +57,7 @@ class WeaponValuesProvider : ValueProvider<Template<*>> {
                 baseLevel = 11.0
                 weaponType = WeaponType.SWORD
                 rarity = Rarity.UNCOMMON
-                tags = listOf(TagValue.ROMAN, TagValue.ANCIENT)
+                tagValues = listOf(TagValue.ROMAN, TagValue.ANCIENT)
             }
         )
     }

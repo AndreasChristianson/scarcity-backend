@@ -2,15 +2,15 @@ package com.pessimisticit.scarcitybackend.configuration.loaders
 
 import com.pessimisticit.scarcitybackend.entities.templates.Rarity
 import com.pessimisticit.scarcitybackend.entities.templates.Template
-import com.pessimisticit.scarcitybackend.entities.templates.Universe
+import com.pessimisticit.scarcitybackend.entities.templates.UniverseTemplate
 import org.springframework.stereotype.Component
 import java.net.URI
 
 @Component
-class MiscValuesProvider : ValueProvider<Template<*>> {
-    override val getValues: Sequence<Template<*>> = sequence {
+class MiscValuesProvider : ValueProvider<Template> {
+    override val getValues: Sequence<Template> = sequence {
         yield(
-            Universe().apply {
+            UniverseTemplate().apply {
                 description = """
                         | A container for all games, and orphaned objects.
                     """.trimMargin()

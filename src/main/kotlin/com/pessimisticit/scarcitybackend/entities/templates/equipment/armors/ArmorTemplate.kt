@@ -1,12 +1,11 @@
 package com.pessimisticit.scarcitybackend.entities.templates.equipment.armors
 
-import com.pessimisticit.scarcitybackend.entities.templates.equipment.Equipment
-import com.pessimisticit.scarcitybackend.entities.templates.equipment.weapons.DamageShape
+import com.pessimisticit.scarcitybackend.entities.templates.equipment.EquipmentTemplate
 import javax.persistence.*
 
 
 @Entity
-class Armor<T : Armor<T>> : Equipment<T>() {
+class ArmorTemplate : EquipmentTemplate() {
 //    @Column
 //    var ac: Double = 0.0
 

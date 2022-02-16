@@ -9,12 +9,12 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "game_object")
-class GameObject<T : Template<T>> {
+class GameObject<T : Template> {
     @Id
     var id: UUID? = UUID.randomUUID()
 
     @ManyToOne(optional = false, targetEntity = Template::class)
-    lateinit var template: Template<T>
+    lateinit var template: T
 
     @ManyToOne(optional = true)
     @JsonBackReference
@@ -30,9 +30,5 @@ class GameObject<T : Template<T>> {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "parent", targetEntity = Modifier::class)
-    lateinit var modifiers: Collection<Modifier<T, *>>
-
-    fun applyModifiers(): GameObject<T> {
-        return modifiers.fold(this) { acc, modifier -> modifier.modify(acc) }
-    }
+    lateinit var modifiers: Collection<Modifier<T>>
 }

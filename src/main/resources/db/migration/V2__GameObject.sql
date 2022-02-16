@@ -12,8 +12,6 @@ CREATE TABLE game_object (
     ,parent_id     uuid NOT NULL REFERENCES game_object (id)
     ,x             float
     ,y             float
-
---    ,durability    float
 );
 
 CREATE INDEX ON game_object(parent_id);

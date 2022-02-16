@@ -1,10 +1,7 @@
 package com.pessimisticit.scarcitybackend.controllers
 
 import com.pessimisticit.scarcitybackend.entities.GameObject
-import com.pessimisticit.scarcitybackend.entities.templates.Template
-import com.pessimisticit.scarcitybackend.entities.templates.equipment.Equipment
-import com.pessimisticit.scarcitybackend.entities.templates.equipment.weapons.RangedWeapon
-import com.pessimisticit.scarcitybackend.entities.templates.equipment.weapons.Weapon
+import com.pessimisticit.scarcitybackend.entities.templates.equipment.EquipmentTemplate
 import com.pessimisticit.scarcitybackend.repositories.GameObjectRepository
 import com.pessimisticit.scarcitybackend.services.GameObjectGenerator
 import org.springframework.hateoas.server.EntityLinks
@@ -20,9 +17,9 @@ class GenerationController(
     val entityLinks:EntityLinks
 ) {
     @RequestMapping()
-    fun <T:Equipment<T>>generateWeapon(): ResponseEntity<GameObject<T>> {
+    fun <T: EquipmentTemplate>generateWeapon(): ResponseEntity<GameObject<T>> {
         val result = generator.generate(
-            Equipment::class.java,
+            EquipmentTemplate::class.java,
             gameObjectRepository.getUniverse()
         ) ?: return ResponseEntity.badRequest().build()
         val link = entityLinks.linkForItemResource(GameObject::class.java, result.id!!)

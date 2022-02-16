@@ -10,18 +10,18 @@ import javax.persistence.*
 @Table(name = "modifier")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
-abstract class Modifier<V : Template<V>, T : ModifierTemplate<V, *>> {
+abstract class Modifier<T : Template> {
     @Id
     open var id: UUID? = UUID.randomUUID()
 
     @ManyToOne(targetEntity = Template::class)
     @JoinColumn
-    open lateinit var template: ModifierTemplate<V, *>
+    open lateinit var template: ModifierTemplate<T>
 
     @ManyToOne(targetEntity = GameObject::class)
     @JoinColumn
     @JsonBackReference
-    open lateinit var parent: GameObject<V>
+    open lateinit var parent: GameObject<T>
 
-    abstract fun modify(toBeModified: GameObject<V>): GameObject<V>
+    abstract fun modify(toBeModified: GameObject<T>): GameObject<T>
 }
