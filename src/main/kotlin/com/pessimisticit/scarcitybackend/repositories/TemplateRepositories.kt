@@ -12,7 +12,7 @@ interface TemplateRepository : CrudRepository<Template<*>, UUID>, TemplateGenera
     fun findOneByLabelIgnoreCase(label: String): Template<*>?
 }
 
-interface WeaponTemplateRepository : CrudRepository<Weapon, UUID> {
+interface WeaponTemplateRepository : CrudRepository<Weapon<*>, UUID> {
 }
 
 interface UniverseTemplateRepository : CrudRepository<Universe, UUID> {

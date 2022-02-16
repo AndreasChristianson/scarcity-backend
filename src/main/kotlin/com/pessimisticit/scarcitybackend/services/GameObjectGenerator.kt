@@ -4,6 +4,7 @@ import com.pessimisticit.scarcitybackend.entities.GameObject
 import com.pessimisticit.scarcitybackend.entities.changes.Created
 import com.pessimisticit.scarcitybackend.entities.templates.Rarity
 import com.pessimisticit.scarcitybackend.entities.templates.TagValue
+import com.pessimisticit.scarcitybackend.entities.templates.Template
 import com.pessimisticit.scarcitybackend.entities.templates.equipment.Equipment
 import com.pessimisticit.scarcitybackend.repositories.TemplateRepository
 import org.springframework.data.repository.CrudRepository
@@ -19,7 +20,7 @@ class GameObjectGenerator(
     val roller: RollerService
 ) {
     @Transactional
-    open fun <T : Equipment<T>> generate(
+    open fun <T : Template<T>> generate(
         entityClass: Class<T>,
         parent: GameObject<*>,
         itemLevelMin: Double = 0.0,
@@ -27,7 +28,6 @@ class GameObjectGenerator(
         minRarity: Rarity = Rarity.COMMON,
         requiredTags: Collection<TagValue> = emptyList()
     ): GameObject<T>? {
-        val requestedRarities = Rarity.values().filter { it.relativeWeight <= minRarity.relativeWeight }.toList()
         val potentials = templateRepository.getPotentialTemplates(
             entityClass,
             itemLevelMin,

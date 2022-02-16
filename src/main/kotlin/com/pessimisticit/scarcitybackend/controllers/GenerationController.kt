@@ -1,6 +1,9 @@
 package com.pessimisticit.scarcitybackend.controllers
 
 import com.pessimisticit.scarcitybackend.entities.GameObject
+import com.pessimisticit.scarcitybackend.entities.templates.Template
+import com.pessimisticit.scarcitybackend.entities.templates.equipment.Equipment
+import com.pessimisticit.scarcitybackend.entities.templates.equipment.weapons.RangedWeapon
 import com.pessimisticit.scarcitybackend.entities.templates.equipment.weapons.Weapon
 import com.pessimisticit.scarcitybackend.repositories.GameObjectRepository
 import com.pessimisticit.scarcitybackend.services.GameObjectGenerator
@@ -16,18 +19,14 @@ class GenerationController(
     val gameObjectRepository: GameObjectRepository,
     val entityLinks:EntityLinks
 ) {
-    @RequestMapping(
-//        method = [RequestMethod.POST]
-    )
-    fun generateWeapon(
-
-    ): ResponseEntity<GameObject<Weapon>> {
-        val result = generator.generate<Weapon>(
-            Weapon::class.java,
+    @RequestMapping()
+    fun <T:Equipment<T>>generateWeapon(): ResponseEntity<GameObject<T>> {
+        val result = generator.generate(
+            Equipment::class.java,
             gameObjectRepository.getUniverse()
         ) ?: return ResponseEntity.badRequest().build()
         val link = entityLinks.linkForItemResource(GameObject::class.java, result.id!!)
-        return ResponseEntity.created(link.toUri()).body(result)
+        return ResponseEntity.created(link.toUri()).body(result as GameObject<T>)
     }
 
 }

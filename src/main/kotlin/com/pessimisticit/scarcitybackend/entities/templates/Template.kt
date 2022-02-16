@@ -45,4 +45,6 @@ abstract class Template<T : Template<T>> : HasRelativeRarity {
 
     @Enumerated(EnumType.STRING)
     override var rarity: Rarity = Rarity.COMMON
+
+    open var baseLevel: Double = 0.0
 }

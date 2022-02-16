@@ -3,6 +3,7 @@ package com.pessimisticit.scarcitybackend.repositories
 import com.pessimisticit.scarcitybackend.entities.templates.Rarity
 import com.pessimisticit.scarcitybackend.entities.templates.TagValue
 import com.pessimisticit.scarcitybackend.entities.templates.Template
+import com.pessimisticit.scarcitybackend.entities.templates.equipment.Equipment
 import java.util.stream.Stream
 import javax.persistence.EntityManager
 
@@ -11,7 +12,7 @@ class TemplateGeneratorRepositoryImpl(
     private val entityManager: EntityManager
 ) : TemplateGeneratorRepository {
     override fun <T : Template<T>> getPotentialTemplates(
-        entityClass: Class<T>,
+        equipmentClass: Class<T>,
         itemLevelMin: Double,
         itemLevelMax: Double,
         minRarity: Rarity,
@@ -27,22 +28,22 @@ class TemplateGeneratorRepositoryImpl(
                     .createQuery(
                         """
                         SELECT t
-                        FROM ${entityClass.name} t 
+                        FROM ${equipmentClass.name} t 
                         WHERE t.rarity IN (:validRarities)
-                        AND t.itemLevel BETWEEN :itemLevelMin AND :itemLevelMax
-                        """, entityClass
+                        AND t.baseLevel BETWEEN :itemLevelMin AND :itemLevelMax
+                        """, equipmentClass
                     )
             else ->
                 entityManager
                     .createQuery(
                         """
                         SELECT distinct t
-                        FROM ${entityClass.name} t
+                        FROM ${equipmentClass.name} t
                         JOIN t._tags tag
                         WHERE t.rarity IN (:validRarities)
-                        AND t.itemLevel :itemLevelMin AND :itemLevelMax
+                        AND t.baseLevel :itemLevelMin AND :itemLevelMax
                         AND (tag.tag in (:requiredTags))
-                        """, entityClass
+                        """, equipmentClass
                     )
                     .setParameter("requiredTags", requiredTags)
 

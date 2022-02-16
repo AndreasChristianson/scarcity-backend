@@ -1,7 +1,9 @@
 ALTER TABLE template
-  ADD COLUMN range FLOAT;
+  ADD COLUMN max_range FLOAT;
 ALTER TABLE template
-  ADD COLUMN item_level FLOAT;
+  ADD COLUMN min_range FLOAT;
+ALTER TABLE template
+  ADD COLUMN base_level FLOAT;
 ALTER TABLE template
   ADD COLUMN flavor TEXT;
 

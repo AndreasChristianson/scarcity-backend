@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component
 import java.net.URI
 
 @Component
-class WeaponValuesProvider : ValueProvider<Template<Weapon>> {
-    override val getValues: Sequence<Template<Weapon>> = sequence {
+class WeaponValuesProvider : ValueProvider<Template<*>> {
+    override val getValues: Sequence<Template<*>> = sequence {
         yield(
             Weapon().apply {
                 description = """
@@ -25,11 +25,11 @@ class WeaponValuesProvider : ValueProvider<Template<Weapon>> {
                 damagePerTurn = 10.0
                 damageShape = DamageShape.SLASHING
                 damageType = DamageType.PHYSICAL
-                range = 0.68
+                maxRange = 0.68
                 swingDuration = 500
                 readyDuration = 500
                 slot = WeaponSlot.ONE_HAND
-                itemLevel = 10.0
+                baseLevel = 10.0
                 rarity = Rarity.COMMON
                 weaponType = WeaponType.SWORD
                 tags = listOf(TagValue.AGE_OF_SAIL)
@@ -51,11 +51,11 @@ class WeaponValuesProvider : ValueProvider<Template<Weapon>> {
                 damagePerTurn = 11.0
                 damageShape = DamageShape.PIERCING
                 damageType = DamageType.PHYSICAL
-                range = 0.58
+                maxRange = 0.58
                 swingDuration = 500
                 readyDuration = 300
                 slot = WeaponSlot.ONE_HAND
-                itemLevel = 11.0
+                baseLevel = 11.0
                 weaponType = WeaponType.SWORD
                 rarity = Rarity.UNCOMMON
                 tags = listOf(TagValue.ROMAN, TagValue.ANCIENT)

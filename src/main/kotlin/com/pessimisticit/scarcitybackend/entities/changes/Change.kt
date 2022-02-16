@@ -20,7 +20,6 @@ abstract class Change {
     @JsonBackReference
     open lateinit var parent: GameObject<*>
 
-    @Column
     open var gameTime: Long = 0
 
     @ManyToOne(targetEntity = Modifier::class)
@@ -33,7 +32,6 @@ abstract class Change {
     @JsonBackReference
     open var source: GameObject<*>? = null
 
-    @Column
     @Temporal(TemporalType.TIMESTAMP)
     open var stamp: Date = Date()
 

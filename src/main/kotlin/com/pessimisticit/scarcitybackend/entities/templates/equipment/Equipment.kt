@@ -7,12 +7,10 @@ import javax.persistence.EnumType
 import javax.persistence.Enumerated
 
 @Entity
-abstract class Equipment<T : Equipment<T>> : Template<T>() {
+abstract class Equipment<T:Equipment<T>> : Template<T>() {
     @Enumerated(EnumType.STRING)
     open lateinit var bindType: BindType
 
     open var weight: Double = 0.0 //grams
-
-    open var itemLevel: Double = 0.0
 }
 

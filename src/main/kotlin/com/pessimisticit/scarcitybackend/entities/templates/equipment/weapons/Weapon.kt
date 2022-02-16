@@ -8,7 +8,7 @@ import javax.persistence.EnumType
 import javax.persistence.Enumerated
 
 @Entity
-class Weapon : Equipment<Weapon>() {
+open class Weapon<T:Weapon<T>> : Equipment<T>() {
     var damagePerTurn: Double = 0.0
 
     @Enumerated(EnumType.STRING)
@@ -24,9 +24,9 @@ class Weapon : Equipment<Weapon>() {
     @Enumerated(EnumType.STRING)
     lateinit var slot: WeaponSlot
 
-    var range: Double = 0.0 //meters
+    var maxRange: Double = 0.0 //meters
 
-    val damagePerSwing
+    open val damagePerSwing
         get() = run {
             val totalTimePerSwing = swingDuration + readyDuration
             val swingsPerTurn = totalTimePerSwing / TURN_DURATION
