@@ -1,18 +1,20 @@
 package com.pessimisticit.scarcitybackend.repositories
 
-import com.pessimisticit.scarcitybackend.entities.GameObject
-import com.pessimisticit.scarcitybackend.entities.templates.UniverseTemplate
+import com.pessimisticit.scarcitybackend.entities.GameEntity
+import com.pessimisticit.scarcitybackend.objects.Universe
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.rest.core.annotation.RepositoryRestResource
 import java.util.*
 
 @RepositoryRestResource
-interface GameObjectRepository : CrudRepository<GameObject<*>, UUID> {
+interface GameEntityRepository : CrudRepository<GameEntity<*>, UUID> {
 
-    @Query("""
-        select u from GameObject u
+    @Query(
+        """
+        select u from GameEntity u
         where u.id = '00000000-0000-0000-0000-000000000000'
-        """)
-    fun getUniverse(): GameObject<UniverseTemplate>
+        """
+    )
+    fun getUniverse(): GameEntity<Universe>
 }

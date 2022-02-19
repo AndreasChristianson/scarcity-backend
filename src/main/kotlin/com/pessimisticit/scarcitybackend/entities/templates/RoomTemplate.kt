@@ -1,4 +1,6 @@
 package com.pessimisticit.scarcitybackend.entities.templates
 
-open class RoomTemplate: Template() {
-}
+import javax.persistence.Entity
+
+@Entity
+open class RoomTemplate : Template()

@@ -1,10 +1,10 @@
 package com.pessimisticit.scarcitybackend.entities.templates.modifiers
 
-import com.pessimisticit.scarcitybackend.entities.GameObject
 import com.pessimisticit.scarcitybackend.entities.templates.Template
+import com.pessimisticit.scarcitybackend.objects.GameObject
 import javax.persistence.Entity
 
 @Entity
-abstract class ModifierTemplate<T :Template> : Template() {
-    abstract fun modify(toBeModified: GameObject<T>): GameObject<T>
+abstract class ModifierTemplate<T : GameObject> : Template() {
+    abstract fun modify(toBeModified: T): T
 }

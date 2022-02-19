@@ -1,4 +1,4 @@
-package com.pessimisticit.scarcitybackend.configuration;
+package com.pessimisticit.scarcitybackend.configuration
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.context.properties.ConfigurationProperties

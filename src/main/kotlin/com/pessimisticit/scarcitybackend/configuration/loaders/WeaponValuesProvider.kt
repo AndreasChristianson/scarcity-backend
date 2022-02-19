@@ -19,7 +19,6 @@ class WeaponValuesProvider : ValueProvider<WeaponTemplate> {
                     URI("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/MuseeMarine-sabre-p1000456.jpg/320px-MuseeMarine-sabre-p1000456.jpg")
                 bindType = BindType.NEVER_BINDS
                 weight = 1100.0
-                damagePerTurn = 10.0
                 damageShape = DamageShape.SLASHING
                 damageType = DamageType.PHYSICAL
                 maxRange = 0.68
@@ -45,14 +44,13 @@ class WeaponValuesProvider : ValueProvider<WeaponTemplate> {
                     URI("https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Uncrossed_gladius.jpg/240px-Uncrossed_gladius.jpg")
                 bindType = BindType.NEVER_BINDS
                 weight = 905.0
-                damagePerTurn = 11.0
                 damageShape = DamageShape.PIERCING
                 damageType = DamageType.PHYSICAL
                 maxRange = 0.58
                 swingDuration = 500
                 readyDuration = 300
                 slot = WeaponSlot.ONE_HAND
-                baseLevel = 11.0
+                baseLevel = 10.0
                 weaponType = WeaponType.SWORD
                 rarity = Rarity.UNCOMMON
                 tagValues = listOf(TagValue.ROMAN, TagValue.ANCIENT)

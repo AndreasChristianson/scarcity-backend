@@ -1,16 +1,16 @@
 package com.pessimisticit.scarcitybackend.entities.templates
 
 import com.pessimisticit.scarcitybackend.constants.*
-import com.pessimisticit.scarcitybackend.interfaces.Weapon
+import com.pessimisticit.scarcitybackend.distributions.TruncatedGaussianDistribution
+import com.pessimisticit.scarcitybackend.mechanics.damage.DamageSpecification
+import com.pessimisticit.scarcitybackend.objects.Weapon
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
 
 @Entity
-open class WeaponTemplate : EquipmentTemplate(), Weapon {
-    open var damagePerTurn: Double = 0.0
-
+open class WeaponTemplate : EquipmentTemplate<Weapon>() {
     @Enumerated(EnumType.STRING)
     open lateinit var damageShape: DamageShape
 
@@ -26,13 +26,40 @@ open class WeaponTemplate : EquipmentTemplate(), Weapon {
 
     open var maxRange: Double = 0.0 //meters
 
-    open val damagePerSwing
-        get() = run {
-            val totalTimePerSwing = swingDuration + readyDuration
-            val swingsPerTurn = totalTimePerSwing / TURN_DURATION
-            damagePerTurn / swingsPerTurn
-        }
-
     @Column(name = "type")
     open lateinit var weaponType: WeaponType
+
+    open val damagePerSwing
+        get() = dps / swingsPerSecond
+
+    val totalSwingTime: Long
+        get() = swingDuration + readyDuration
+    val swingsPerSecond: Double
+        get() = TURN_DURATION / totalSwingTime
+    val dps: Double
+        get() = baseLevel * rarity.budgetMultiplier
+
+    override fun generateInstance(): Weapon {
+        return Weapon(
+            weaponType = weaponType,
+            readyDuration = readyDuration,
+            swingDuration = swingDuration,
+            additionalDamage = listOf(),
+            baseDamage = DamageSpecification(
+                damageType = damageType,
+                damageShape = damageShape,
+                distribution = TruncatedGaussianDistribution(
+                    center = damagePerSwing,
+                    stdDev = damagePerSwing * damageShape.relativeSpread
+                )
+            ),
+            maxRange = maxRange,
+
+            ).also {
+            it.flavor = flavor
+            it.icon = icon
+            it.label = label
+            it.description = description
+        }
+    }
 }
