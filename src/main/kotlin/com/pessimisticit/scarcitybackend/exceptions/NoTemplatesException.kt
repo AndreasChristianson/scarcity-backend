@@ -2,9 +2,9 @@ package com.pessimisticit.scarcitybackend.exceptions
 
 import java.io.Serial
 
-class NoTemplateOptionsException(
+class NoTemplatesException(
     message: String?
-) : RuntimeException(
+) : Exception(
     message
 ) {
     companion object {

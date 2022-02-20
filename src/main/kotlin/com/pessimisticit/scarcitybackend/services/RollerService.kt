@@ -17,4 +17,8 @@ class RollerService {
             count <= index
         }.first()
     }
+
+    fun percent(): Double {
+        return Random.nextDouble(0.0, 100.0)
+    }
 }

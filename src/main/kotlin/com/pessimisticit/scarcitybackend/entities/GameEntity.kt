@@ -15,15 +15,15 @@ class GameEntity<T : GameObject> : TemplatedEntity<GameObjectTemplate<T>>() {
     lateinit var parent: GameEntity<*>
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "parent", targetEntity = GameEntity::class, cascade = [CascadeType.ALL])
-    lateinit var children: MutableCollection<GameEntity<*>>
+    @OneToMany(mappedBy = "parent", targetEntity = GameEntity::class, cascade = [CascadeType.PERSIST])
+    var children: MutableCollection<GameEntity<*>> = mutableListOf()
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "parent", targetEntity = Change::class, cascade = [CascadeType.ALL])
-    lateinit var changes: MutableCollection<Change>
+    @OneToMany(mappedBy = "parent", targetEntity = Change::class, cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    var changes: MutableCollection<Change> = mutableListOf()
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "parent", targetEntity = Modifier::class, cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "parent", targetEntity = Modifier::class, cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     var modifiers: MutableCollection<Modifier<T>> = mutableListOf()
 
     @delegate:Transient
@@ -33,8 +33,8 @@ class GameEntity<T : GameObject> : TemplatedEntity<GameObjectTemplate<T>>() {
         modifiers
             .sortedBy { it.template.baseLevel }
             .fold(baseInstance) { instance, modifier ->
-            modifier.modify(instance)
-        }
+                modifier.modify(instance)
+            }
     }
 }
 

@@ -3,12 +3,12 @@ package com.pessimisticit.scarcitybackend.repositories
 import com.pessimisticit.scarcitybackend.entities.GameEntity
 import com.pessimisticit.scarcitybackend.objects.Universe
 import org.springframework.data.jpa.repository.Query
-import org.springframework.data.repository.CrudRepository
+import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.data.rest.core.annotation.RepositoryRestResource
 import java.util.*
 
 @RepositoryRestResource
-interface GameEntityRepository : CrudRepository<GameEntity<*>, UUID> {
+interface GameEntityRepository : PagingAndSortingRepository<GameEntity<*>, UUID> {
 
     @Query(
         """
