@@ -7,11 +7,12 @@ import com.pessimisticit.scarcitybackend.constants.TagValue
 import com.pessimisticit.scarcitybackend.entities.Tag
 import com.pessimisticit.scarcitybackend.objects.GameObject
 import javax.persistence.Entity
+import javax.persistence.FetchType
 import javax.persistence.ManyToMany
 
 @Entity
 abstract class GameObjectTemplate<T : GameObject> : Template() {
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JsonManagedReference
     open lateinit var tag: Set<Tag>
 

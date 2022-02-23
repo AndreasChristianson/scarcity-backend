@@ -23,7 +23,7 @@ abstract class Template : HasRelativeRarity, AbstractJpaPersistable() {
 
     open var flavor: String? = null
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated
     override var rarity: Rarity = Rarity.COMMON
 
     open var baseLevel: Double = 0.0
