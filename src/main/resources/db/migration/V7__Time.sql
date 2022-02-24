@@ -5,4 +5,3 @@ CREATE TABLE game_time (
 
 INSERT INTO game_time(id, game_time)
   VALUES ('00000000-0000-0000-0000-000000000000', 1);
-

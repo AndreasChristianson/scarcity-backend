@@ -36,10 +36,10 @@ class DbLoader {
                 .flatMap { it.getValues }
                 .map {
                     it.apply {
-                        id = UUID.nameUUIDFromBytes(label.toByteArray())
+                        id = UUID.nameUUIDFromBytes(label.lowercase().toByteArray())
                     }
                 }
-                .forEach { templateRepository.save(it) }
+                .forEach(templateRepository::save)
 
             log.info("${gameEntityProviders.size} game object providers found for loading")
             gameEntityProviders

@@ -7,7 +7,7 @@ import java.net.URI
 abstract class GameObject : Displayable {
     var prefix: String? = null
     var suffix: String? = null
-    var flavor: String? = null
+    override var flavor: String? = null
     lateinit var label: String
     override val name: String
         get() = "${prefix ?: ""} $label ${suffix ?: ""}".trim()

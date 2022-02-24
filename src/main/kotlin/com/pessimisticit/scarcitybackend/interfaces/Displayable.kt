@@ -6,5 +6,7 @@ interface Displayable {
     val name: String
     val description: String
     val icon: URI
+    val flavor: String?
+        get() = null
 }
 

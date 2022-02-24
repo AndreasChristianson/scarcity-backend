@@ -21,7 +21,6 @@ interface UniverseTemplateRepository : TemplateRepositoryBase<UniverseTemplate> 
     @Query(
         """
         select u from UniverseTemplate u
-        where u.id = '1910cdde-39fc-313a-889e-df4dfe613a2d'
         """
     )
     fun getUniverseTemplate(): UniverseTemplate

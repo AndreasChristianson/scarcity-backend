@@ -1,5 +1,6 @@
 package com.pessimisticit.scarcitybackend.distributions
 
+import com.pessimisticit.scarcitybackend.formatting.NumberFormatter.formatDecimal
 import java.net.URI
 import kotlin.random.Random
 
@@ -17,9 +18,9 @@ data class UniformDistribution(val min: Double, val max: Double) : DistributionC
     override val average: Double
         get() = max - min
     override val name: String
-        get() = "${format(min)} - ${format(max)}"
+        get() = "${formatDecimal(min)} - ${formatDecimal(max)}"
     override val description: String
-        get() = "Between ${format(min)} and ${format(max)} uniformly distributed."
+        get() = "Between ${formatDecimal(min)} and ${formatDecimal(max)} uniformly distributed."
     override val icon: URI
         get() = URI("http://example.com")
 }

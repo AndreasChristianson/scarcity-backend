@@ -1,5 +1,6 @@
 package com.pessimisticit.scarcitybackend.services
 
+import com.pessimisticit.scarcitybackend.constants.Rarity
 import com.pessimisticit.scarcitybackend.entities.GameEntity
 import com.pessimisticit.scarcitybackend.entities.Modifier
 import com.pessimisticit.scarcitybackend.entities.changes.Created
@@ -65,6 +66,7 @@ class GameObjectGenerator(
             templateClass,
             itemLevelMin,
             itemLevelMax,
+            Rarity.COMMON
         ).toList()
         if (potentials.isEmpty()) {
             throw NoTemplatesException("No [${templateClass.simpleName}]s found that fulfil the query parameters")

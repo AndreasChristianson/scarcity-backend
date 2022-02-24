@@ -1,5 +1,6 @@
 package com.pessimisticit.scarcitybackend.repositories
 
+import com.pessimisticit.scarcitybackend.constants.Rarity
 import java.util.stream.Stream
 
 interface TemplateGeneratorRepository {
@@ -7,5 +8,6 @@ interface TemplateGeneratorRepository {
         templateClass: Class<T>,
         itemLevelMin: Double,
         itemLevelMax: Double,
-    ): Stream<T>
+        rarity: Rarity,
+        ): Stream<T>
 }

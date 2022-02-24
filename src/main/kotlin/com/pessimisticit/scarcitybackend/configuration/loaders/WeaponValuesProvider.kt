@@ -2,6 +2,8 @@ package com.pessimisticit.scarcitybackend.configuration.loaders
 
 import com.pessimisticit.scarcitybackend.constants.*
 import com.pessimisticit.scarcitybackend.entities.templates.WeaponTemplate
+import com.pessimisticit.scarcitybackend.mechanics.damage.DamageShape
+import com.pessimisticit.scarcitybackend.mechanics.damage.DamageType
 import org.springframework.stereotype.Component
 import java.net.URI
 
@@ -14,7 +16,7 @@ class WeaponValuesProvider : ValueProvider<WeaponTemplate> {
                         |A short, broad sabre with a slightly curved blade sharpened on the cutting edge,
                         |and a hilt featuring a solid cupped guard.
                     """.trimMargin()
-                label = "Cutlass"
+                label = "cutlass"
                 icon =
                     URI("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/MuseeMarine-sabre-p1000456.jpg/320px-MuseeMarine-sabre-p1000456.jpg")
                 bindType = BindType.NEVER_BINDS
@@ -22,8 +24,7 @@ class WeaponValuesProvider : ValueProvider<WeaponTemplate> {
                 damageShape = DamageShape.SLASHING
                 damageType = DamageType.PHYSICAL
                 maxRange = 0.68
-                swingDuration = 500
-                readyDuration = 500
+                swingTimeout = 1000
                 slot = WeaponSlot.ONE_HAND
                 baseLevel = 10.0
                 rarity = Rarity.COMMON
@@ -38,7 +39,7 @@ class WeaponValuesProvider : ValueProvider<WeaponTemplate> {
                         |A solid grip is provided by a knobbed hilt with ridges for the fingers.
                         |The previous owner's name is engraved on the blade.
                     """.trimMargin()
-                label = "Gladius"
+                label = "gladius"
                 flavor = "Quemadmodum gladius neminem occidit, occidentis telum est."
                 icon =
                     URI("https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Uncrossed_gladius.jpg/240px-Uncrossed_gladius.jpg")
@@ -47,8 +48,7 @@ class WeaponValuesProvider : ValueProvider<WeaponTemplate> {
                 damageShape = DamageShape.PIERCING
                 damageType = DamageType.PHYSICAL
                 maxRange = 0.58
-                swingDuration = 500
-                readyDuration = 300
+                swingTimeout = 800
                 slot = WeaponSlot.ONE_HAND
                 baseLevel = 10.0
                 weaponType = WeaponType.SWORD

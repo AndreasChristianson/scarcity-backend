@@ -6,6 +6,7 @@ import com.pessimisticit.scarcitybackend.constants.Rarity
 import com.pessimisticit.scarcitybackend.entities.AbstractJpaPersistable
 import org.springframework.hateoas.server.core.Relation
 import java.net.URI
+import java.util.*
 import javax.persistence.*
 
 @Entity
