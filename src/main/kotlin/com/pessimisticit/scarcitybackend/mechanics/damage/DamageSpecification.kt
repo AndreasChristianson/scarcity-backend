@@ -1,5 +1,6 @@
 package com.pessimisticit.scarcitybackend.mechanics.damage
 
+import com.pessimisticit.scarcitybackend.constants.MAX_DAMAGE_MULTIPLIER
 import com.pessimisticit.scarcitybackend.distributions.DistributionConfiguration
 import com.pessimisticit.scarcitybackend.distributions.TruncatedGaussianDistribution
 import com.pessimisticit.scarcitybackend.interfaces.Displayable
@@ -9,7 +10,7 @@ data class DamageSpecification(
     val damageType: DamageType,
     val damageShape: DamageShape,
     val distribution: DistributionConfiguration
-) : Displayable {
+) {
     constructor(
         damageType: DamageType,
         damageShape: DamageShape,
@@ -20,14 +21,10 @@ data class DamageSpecification(
         distribution = TruncatedGaussianDistribution(
             center = center,
             stdDev = damageShape.calculateSpread(center),
-            max = center * 1.25
+            max = center * MAX_DAMAGE_MULTIPLIER
         )
     )
 
-    override val name: String
-        get() = "${distribution.name} $damageType damage"
-    override val description: String
-        get() = "${distribution.average} $damageShape $damageType damage on average"
-    override val icon: URI
+    val icon: URI
         get() = damageType.icon
 }

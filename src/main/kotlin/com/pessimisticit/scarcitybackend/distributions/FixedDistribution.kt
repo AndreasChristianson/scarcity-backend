@@ -10,10 +10,6 @@ data class FixedDistribution(val fixed: Double) : DistributionConfiguration {
 
     override val average: Double
         get() = fixed
-    override val name: String
-        get() = formatDecimal(fixed)
-    override val description: String
-        get() = "Exactly ${formatDecimal(fixed)}, every time."
-    override val icon: URI
-        get() = URI("http://example.com")
+    override val distribution: String
+        get() = "Fixed"
 }

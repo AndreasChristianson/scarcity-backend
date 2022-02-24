@@ -33,15 +33,6 @@ class DamageProc(
         damageShape = damageShape,
         center = damage
     )
-    override val name: String
-        get() = "${damageSpecification.name}: ${NumberFormatter.formatPercent(procChance)}"
-    override val description: String
-        get() = """
-            | ${NumberFormatter.formatPercent(procChance)}
-            | chance to deal ${damageSpecification.name} to $procTarget 
-            | upon $procTrigger. Cannot occur more
-            | than once per ${NumberFormatter.formatGameDuration(procTimeout)}
-            |""".trimMargin()
     override val icon: URI
         get() = damageSpecification.damageType.icon
 }

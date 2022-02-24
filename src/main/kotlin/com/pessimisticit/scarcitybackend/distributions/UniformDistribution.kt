@@ -17,10 +17,7 @@ data class UniformDistribution(val min: Double, val max: Double) : DistributionC
 
     override val average: Double
         get() = max - min
-    override val name: String
-        get() = "${formatDecimal(min)} - ${formatDecimal(max)}"
-    override val description: String
-        get() = "Between ${formatDecimal(min)} and ${formatDecimal(max)} uniformly distributed."
-    override val icon: URI
-        get() = URI("http://example.com")
+
+    override val distribution: String
+        get() = "Uniform"
 }

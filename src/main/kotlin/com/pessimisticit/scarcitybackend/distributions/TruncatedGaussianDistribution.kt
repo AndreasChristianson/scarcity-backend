@@ -31,14 +31,7 @@ data class TruncatedGaussianDistribution(
 
     override val average: Double
         get() = dist.numericalMean
-    override val name: String
-        get() = "~${formatDecimal(average)}"
-    override val description: String
-        get() = """
-            |Between ${formatDecimal(min)} and ${formatDecimal(max)} normally distributed 
-            |with the center at ${formatDecimal(center)} and a standard deviation 
-            |of ${formatDecimal(stdDev)}. This will average ${formatDecimal(average)}.
-            |""".trimMargin()
-    override val icon: URI
-        get() = URI("http://example.com")
+
+    override val distribution: String
+        get() = "Truncated Gaussian"
 }

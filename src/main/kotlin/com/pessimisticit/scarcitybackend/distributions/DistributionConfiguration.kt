@@ -1,9 +1,8 @@
 package com.pessimisticit.scarcitybackend.distributions
 
-import com.pessimisticit.scarcitybackend.interfaces.Displayable
-
-interface DistributionConfiguration : Displayable {
+interface DistributionConfiguration {
     fun roll(): Double
     val average: Double
+    val distribution: String
 }
 
