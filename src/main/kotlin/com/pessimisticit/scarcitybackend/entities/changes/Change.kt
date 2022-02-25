@@ -36,6 +36,6 @@ abstract class Change : AbstractJpaPersistable() {
     abstract fun getChangeMessage(): String
 
     override fun toString(): String {
-        return "$gameTime$ - ${this.javaClass.name}($id): ${getChangeMessage()}"
+        return "$gameTime - $stamp ($id): ${getChangeMessage()}"
     }
 }

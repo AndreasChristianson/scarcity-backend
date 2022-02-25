@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository
 import java.util.stream.Stream
 import javax.persistence.EntityManager
 
-
 @Repository
 class TemplateGeneratorRepositoryImpl(
     private val entityManager: EntityManager
@@ -29,5 +28,21 @@ class TemplateGeneratorRepositoryImpl(
             .setParameter("itemLevelMax", itemLevelMax)
             .setParameter("rarity", rarity)
             .resultStream
+    }
+
+    override fun <T> getTemplateByLabel(
+        templateClass: Class<T>,
+        label: String
+    ): T? {
+        return entityManager
+            .createQuery(
+                """
+                        SELECT t
+                        FROM ${templateClass.name} t 
+                        WHERE 1=1
+                        AND LOWER(t.label) = :label
+                        """, templateClass
+            ).setParameter("label", label.lowercase())
+            .resultStream.findAny().orElse(null)
     }
 }
