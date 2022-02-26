@@ -3,7 +3,6 @@ package com.pessimisticit.scarcitybackend.mechanics.damage
 import com.pessimisticit.scarcitybackend.constants.MAX_DAMAGE_MULTIPLIER
 import com.pessimisticit.scarcitybackend.distributions.DistributionConfiguration
 import com.pessimisticit.scarcitybackend.distributions.TruncatedGaussianDistribution
-import com.pessimisticit.scarcitybackend.interfaces.Displayable
 import java.net.URI
 
 data class DamageSpecification(

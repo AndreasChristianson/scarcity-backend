@@ -4,5 +4,7 @@ enum class TagValue {
     AQUATIC,
     AGE_OF_SAIL,
     ROMAN,
-    ANCIENT
+    ANCIENT,
+    RELIGIOUS,
+    EUROPEAN
 }

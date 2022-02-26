@@ -9,7 +9,8 @@ interface TemplateGeneratorRepository {
         itemLevelMin: Double,
         itemLevelMax: Double,
         rarity: Rarity,
-        ): Stream<T>
+    ): Stream<T>
+
     fun <T> getTemplateByLabel(
         templateClass: Class<T>,
         label: String,

@@ -1,6 +1,6 @@
 package com.pessimisticit.scarcitybackend.configuration.loaders
 
-import com.pessimisticit.scarcitybackend.constants.*
+import com.pessimisticit.scarcitybackend.constants.Rarity
 import com.pessimisticit.scarcitybackend.entities.templates.modifiers.BonusDamageTemplate
 import com.pessimisticit.scarcitybackend.entities.templates.modifiers.DamageProcTemplate
 import com.pessimisticit.scarcitybackend.entities.templates.modifiers.ModifierTemplate
@@ -34,7 +34,7 @@ class WeaponModifierProvider : ValueProvider<ModifierTemplate<Weapon>> {
                 description = "Upon hit, occasionally destroys a piece of equipment on the target."
                 label = "Sundering"
                 rarity = Rarity.SCARCE
-                baseLevel = 20.0
+                baseLevel = 10.0
                 proc = ProcAction.DESTROY_EQUIPMENT
                 prefix = "sundering"
             }
@@ -45,13 +45,28 @@ class WeaponModifierProvider : ValueProvider<ModifierTemplate<Weapon>> {
                 description = "Upon hit, occasionally deals extra freezing damage."
                 label = "Freezing"
                 rarity = Rarity.UNCOMMON
-                baseLevel = 10.0
+                baseLevel = 5.0
                 damageType = DamageType.FROST
                 damageShape = DamageShape.CONVECTION
-                damage = 50.0
-                procChance = .05
+                damage = 40.0
+                procChance = .04
                 proc = ProcAction.DEAL_DAMAGE
                 prefix = "freezing"
+            }
+        )
+        yield(
+            DamageProcTemplate().apply {
+                icon = URI("http://example.com")
+                description = "Upon hit, occasionally deals extra fire damage."
+                label = "Flaming"
+                rarity = Rarity.UNCOMMON
+                baseLevel = 5.0
+                damageType = DamageType.FIRE
+                damageShape = DamageShape.CONVECTION
+                damage = 30.0
+                procChance = .06
+                proc = ProcAction.DEAL_DAMAGE
+                prefix = "flaming"
             }
         )
     }

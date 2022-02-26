@@ -12,7 +12,7 @@ enum class DamageShape(private val relativeSpread: Double) {
     CONVECTION(0.3), ;
 
     fun calculateSpread(damage: Double): Double {
-        return relativeSpread * damage;
+        return relativeSpread * damage
     }
 
     override fun toString(): String {

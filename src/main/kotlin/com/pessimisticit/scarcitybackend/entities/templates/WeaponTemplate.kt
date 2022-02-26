@@ -3,7 +3,6 @@ package com.pessimisticit.scarcitybackend.entities.templates
 import com.pessimisticit.scarcitybackend.constants.TURN_DURATION
 import com.pessimisticit.scarcitybackend.constants.WeaponSlot
 import com.pessimisticit.scarcitybackend.constants.WeaponType
-import com.pessimisticit.scarcitybackend.distributions.TruncatedGaussianDistribution
 import com.pessimisticit.scarcitybackend.mechanics.damage.DamageShape
 import com.pessimisticit.scarcitybackend.mechanics.damage.DamageSpecification
 import com.pessimisticit.scarcitybackend.mechanics.damage.DamageType
@@ -44,7 +43,6 @@ open class WeaponTemplate : EquipmentTemplate<Weapon>() {
         return Weapon(
             weaponType = weaponType,
             swingTimeout = swingTimeout,
-            additionalDamage = mutableListOf(),
             baseDamage = DamageSpecification(
                 damageType = damageType,
                 damageShape = damageShape,

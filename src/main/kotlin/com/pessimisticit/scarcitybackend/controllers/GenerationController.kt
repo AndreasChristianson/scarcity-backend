@@ -50,7 +50,7 @@ class GenerationController(
     @RequestMapping("/generate/weapon")
     fun generateSpecificWeapon(
         @RequestParam templateName: String,
-        @RequestParam(name = "modifier",defaultValue = "") modifiers: Collection<String>,
+        @RequestParam(name = "modifier", defaultValue = "") modifiers: Collection<String>,
     ): ResponseEntity<GameEntity<Weapon>> {
         val generated = weaponService.generateWeapon(
             weaponTemplateName = templateName,

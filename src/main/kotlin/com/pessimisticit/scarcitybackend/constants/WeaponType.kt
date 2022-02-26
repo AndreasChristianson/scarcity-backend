@@ -5,4 +5,5 @@ enum class WeaponType {
     AX,
     SPEAR,
     POLE_ARM,
+    BLUDGEON,
 }

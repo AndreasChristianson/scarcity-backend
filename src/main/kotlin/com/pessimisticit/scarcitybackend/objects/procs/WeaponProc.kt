@@ -1,6 +1,5 @@
 package com.pessimisticit.scarcitybackend.objects.procs
 
-import com.pessimisticit.scarcitybackend.formatting.NumberFormatter
 import com.pessimisticit.scarcitybackend.mechanics.combat.ProcAction
 import com.pessimisticit.scarcitybackend.mechanics.combat.ProcSource
 import com.pessimisticit.scarcitybackend.mechanics.combat.ProcTarget

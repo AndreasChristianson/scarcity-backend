@@ -1,10 +1,13 @@
 package com.pessimisticit.scarcitybackend.entities.templates.modifiers
 
-import com.pessimisticit.scarcitybackend.distributions.FixedDistribution
+import com.pessimisticit.scarcitybackend.mechanics.combat.ProcAction
+import com.pessimisticit.scarcitybackend.mechanics.combat.ProcSource
+import com.pessimisticit.scarcitybackend.mechanics.combat.ProcTarget
+import com.pessimisticit.scarcitybackend.mechanics.combat.ProcTrigger
 import com.pessimisticit.scarcitybackend.mechanics.damage.DamageShape
-import com.pessimisticit.scarcitybackend.mechanics.damage.DamageSpecification
 import com.pessimisticit.scarcitybackend.mechanics.damage.DamageType
 import com.pessimisticit.scarcitybackend.objects.Weapon
+import com.pessimisticit.scarcitybackend.objects.procs.DamageProc
 import javax.persistence.Entity
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
@@ -21,13 +24,17 @@ class BonusDamageTemplate : WeaponModifierTemplate() {
 
     override fun modify(toBeModified: Weapon): Weapon {
         return super.modify(toBeModified).also {
-            it.additionalDamage.add(
-                DamageSpecification(
-                    damageType = damageType,
+            it.procs.add(
+                DamageProc(
                     damageShape = damageShape,
-                    distribution = FixedDistribution(
-                        fixed = damage
-                    )
+                    damageType = damageType,
+                    damage = damage,
+                    procTrigger = ProcTrigger.SUCCESSFUL_ATTACK,
+                    procChance = 1.0,
+                    procSource = ProcSource.SELF,
+                    procAction = ProcAction.DEAL_DAMAGE,
+                    procTarget = ProcTarget.TARGET,
+                    procTimeout = 0
                 )
             )
         }

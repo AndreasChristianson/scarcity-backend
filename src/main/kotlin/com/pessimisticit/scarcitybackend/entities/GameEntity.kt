@@ -26,10 +26,20 @@ class GameEntity<T : GameObject> : TemplatedEntity<GameObjectTemplate<T>>() {
     @OneToMany(mappedBy = "parent", targetEntity = Modifier::class, cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     var modifiers: MutableCollection<Modifier<T>> = mutableListOf()
 
+    private val modificationSum: Double
+        get() = modifiers.sumOf { it.template.baseLevel }
+
+    private val modificationMax: Double
+        get() = modifiers.maxOfOrNull { it.template.baseLevel } ?: 0.0
+
     @delegate:Transient
     @get:Transient
     val computed: T by lazy {
-        val baseInstance = template.generateInstance()
+        val baseInstance = template.generateInstance().also {
+            it.modificationSum = modificationSum
+            it.modificationMax = modificationMax
+        }
+
         modifiers
             .sortedBy { it.template.baseLevel }
             .fold(baseInstance) { instance, modifier ->

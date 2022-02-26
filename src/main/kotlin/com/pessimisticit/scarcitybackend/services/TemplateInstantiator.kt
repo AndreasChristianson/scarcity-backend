@@ -42,7 +42,7 @@ class TemplateInstantiator(
             this.parent = newObject
         }
         log.trace("saving $newObject")
-        val saved =  gameEntityRepo.save(newObject)
+        val saved = gameEntityRepo.save(newObject)
         log.debug("saved $saved")
         return saved
     }

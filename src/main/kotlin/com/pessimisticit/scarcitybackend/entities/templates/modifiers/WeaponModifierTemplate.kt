@@ -4,4 +4,4 @@ import com.pessimisticit.scarcitybackend.objects.Weapon
 import javax.persistence.Entity
 
 @Entity
-abstract class WeaponModifierTemplate : ModifierTemplate<Weapon>()
+abstract class WeaponModifierTemplate : EquipmentModifierTemplate<Weapon>()

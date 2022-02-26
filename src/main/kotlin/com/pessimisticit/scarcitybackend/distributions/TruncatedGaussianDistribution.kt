@@ -1,9 +1,7 @@
 package com.pessimisticit.scarcitybackend.distributions
 
-import com.pessimisticit.scarcitybackend.formatting.NumberFormatter.formatDecimal
 import net.andrewmao.probability.TruncatedNormal
 import org.apache.commons.math3.distribution.AbstractRealDistribution
-import java.net.URI
 
 data class TruncatedGaussianDistribution(
     val center: Double,

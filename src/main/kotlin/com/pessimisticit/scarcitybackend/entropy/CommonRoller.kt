@@ -11,6 +11,8 @@ object CommonRoller : Roller {
     }
 
     override fun getModifierCount(): Int {
-        return Roller.truncatedGaussianInt().coerceAtLeast(0)
+        return Roller.truncatedGaussianInt(center = -0.5)
+            .coerceAtLeast(0)
+
     }
 }

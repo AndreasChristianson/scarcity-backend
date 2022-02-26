@@ -12,7 +12,6 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
-import kotlin.streams.toList
 
 @Service
 class WeaponService(
@@ -51,6 +50,7 @@ class WeaponService(
             modifierTemplates = selectedModifiers,
         )
     }
+
     @Transactional
     fun generateWeapon(
         weaponTemplateName: String,
@@ -59,7 +59,7 @@ class WeaponService(
         log.debug("Generating a specific weapon using template [$weaponTemplateName]")
         val template = getWeaponTemplateByLabel(weaponTemplateName)
 
-        val modifiers= modifiersTemplateNames
+        val modifiers = modifiersTemplateNames
             .stream().map { getWeaponTemplateModifierByLabel(it) }
             .toList()
 
