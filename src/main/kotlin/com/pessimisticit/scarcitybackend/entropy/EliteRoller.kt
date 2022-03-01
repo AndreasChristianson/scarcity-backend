@@ -16,11 +16,17 @@ object EliteRoller : Roller {
         }
     }
 
-    override fun getModifierCount(): Int {
-        return Roller.truncatedGaussianInt(
-            center = 2.0,
-            min = 1,
-            stdev = 0.7
-        )
-    }
+    override fun rollBeneficialModifierCount(): Int = Roller.truncatedGaussianInt(
+        center = 1.0,
+        min = 1,
+    )
+
+
+    override fun rollNeutralModifierCount(): Int = Roller.truncatedGaussianInt(
+        center = -1.0,
+    )
+
+    override fun rollHarmfulModifierCount(): Int = Roller.truncatedGaussianInt(
+        center = -2.0,
+    )
 }

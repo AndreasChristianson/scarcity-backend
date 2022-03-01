@@ -6,3 +6,7 @@ ALTER TABLE template ADD COLUMN proc_source TEXT;
 ALTER TABLE template ADD COLUMN proc_trigger TEXT;
 ALTER TABLE template ADD COLUMN damage FLOAT;
 ALTER TABLE template ADD COLUMN proc_chance FLOAT;
+ALTER TABLE template ADD COLUMN damage_multiplier FLOAT;
+ALTER TABLE template ADD COLUMN weight_multiplier FLOAT;
+ALTER TABLE template ADD COLUMN swing_time_multiplier FLOAT;
+ALTER TABLE template ADD COLUMN min_bind_type TEXT;

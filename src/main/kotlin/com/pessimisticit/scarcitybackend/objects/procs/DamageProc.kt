@@ -32,6 +32,8 @@ class DamageProc(
         damageShape = damageShape,
         center = damage
     )
+    override val averageDamage: Double
+        get() = damageSpecification.distribution.average * this.procChance
     override val icon: URI
         get() = damageSpecification.damageType.icon
 }

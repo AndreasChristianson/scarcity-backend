@@ -5,7 +5,9 @@ import net.andrewmao.probability.TruncatedNormal
 
 interface Roller {
     fun <T : HasRelativeRarity> select(items: Collection<T>): T
-    fun getModifierCount(): Int
+    fun rollBeneficialModifierCount(): Int
+    fun rollNeutralModifierCount(): Int
+    fun rollHarmfulModifierCount(): Int
 
     companion object {
         fun truncatedGaussian(

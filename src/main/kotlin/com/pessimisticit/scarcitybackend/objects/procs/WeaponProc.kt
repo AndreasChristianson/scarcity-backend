@@ -16,4 +16,6 @@ open class WeaponProc(
 ) {
     open val icon: URI
         get() = procAction.icon
+    open val averageDamage: Double
+        get() = 0.0
 }

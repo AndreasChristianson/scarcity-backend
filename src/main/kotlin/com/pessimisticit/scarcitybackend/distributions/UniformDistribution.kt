@@ -2,7 +2,10 @@ package com.pessimisticit.scarcitybackend.distributions
 
 import kotlin.random.Random
 
-data class UniformDistribution(val min: Double, val max: Double) : DistributionConfiguration {
+class UniformDistribution(
+    var min: Double,
+    var max: Double
+    ) : DistributionConfiguration {
     init {
         require(max > min) {
             "Max must be greater than min"
@@ -11,6 +14,11 @@ data class UniformDistribution(val min: Double, val max: Double) : DistributionC
 
     override fun roll(): Double {
         return Random.nextDouble(min, max)
+    }
+
+    override fun scale(damageMultiplier: Double) {
+        min*=damageMultiplier
+        max*=damageMultiplier
     }
 
     override val average: Double

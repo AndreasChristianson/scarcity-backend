@@ -1,8 +1,12 @@
 package com.pessimisticit.scarcitybackend.distributions
 
-data class FixedDistribution(val fixed: Double) : DistributionConfiguration {
+class FixedDistribution(var fixed: Double) : DistributionConfiguration {
     override fun roll(): Double {
         return fixed
+    }
+
+    override fun scale(damageMultiplier: Double) {
+        fixed*=damageMultiplier
     }
 
     override val average: Double

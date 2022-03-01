@@ -10,9 +10,15 @@ object CommonRoller : Roller {
         ) { total: Int -> Random.nextInt(total) }
     }
 
-    override fun getModifierCount(): Int {
-        return Roller.truncatedGaussianInt(center = -0.5)
-            .coerceAtLeast(0)
+    override fun rollBeneficialModifierCount(): Int {
+        return Roller.truncatedGaussianInt(center = -.5)
+    }
 
+    override fun rollNeutralModifierCount(): Int {
+        return Roller.truncatedGaussianInt(center = -0.5)
+    }
+
+    override fun rollHarmfulModifierCount(): Int {
+        return Roller.truncatedGaussianInt(center = -1.0)
     }
 }

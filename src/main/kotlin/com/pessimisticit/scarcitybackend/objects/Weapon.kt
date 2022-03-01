@@ -6,13 +6,6 @@ import com.pessimisticit.scarcitybackend.mechanics.damage.DamageSpecification
 import com.pessimisticit.scarcitybackend.objects.procs.DamageProc
 import com.pessimisticit.scarcitybackend.objects.procs.WeaponProc
 
-private val WeaponProc.averageDamage: Double
-    get() = if (this is DamageProc) {
-        this.damageSpecification.distribution.average * this.procChance
-    } else {
-        0.0
-    }
-
 class Weapon(
     var maxRange: Double,
     var baseDamage: DamageSpecification,

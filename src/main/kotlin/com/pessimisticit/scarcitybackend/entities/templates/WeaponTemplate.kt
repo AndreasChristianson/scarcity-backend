@@ -31,10 +31,10 @@ open class WeaponTemplate : EquipmentTemplate<Weapon>() {
     @Column(name = "type")
     open lateinit var weaponType: WeaponType
 
-    open val damagePerSwing
+    val damagePerSwing
         get() = dps / swingsPerSecond
 
-    val swingsPerSecond: Double
+    private val swingsPerSecond: Double
         get() = TURN_DURATION / swingTimeout
     val dps: Double
         get() = baseLevel * rarity.budgetMultiplier
@@ -55,6 +55,7 @@ open class WeaponTemplate : EquipmentTemplate<Weapon>() {
             it.icon = icon
             it.label = label
             it.description = description
+            it.weight = weight
         }
     }
 }

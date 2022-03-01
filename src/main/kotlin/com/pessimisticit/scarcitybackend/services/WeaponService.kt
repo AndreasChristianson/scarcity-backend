@@ -28,15 +28,46 @@ class WeaponService(
     ): GameEntity<Weapon> {
         val templates = getWeaponTemplates(
             itemLevelMin = itemLevelMin,
-            itemLevelMax = itemLevelMax
+            itemLevelMax = itemLevelMax,
+            rarity = Rarity.COMMON
         )
         log.info("Generating weapon between $itemLevelMin and $itemLevelMax using ${roller::class.simpleName}")
         val template = roller.select(templates)
         log.trace("Selected ${template.label}")
-        val modifierCount = roller.getModifierCount()
-        log.trace("Rolled $modifierCount modifiers")
-        val selectedModifiers = if (modifierCount > 0) {
-            val modifiers = getWeaponModifierTemplates()
+        val selectedModifiers =
+            getBeneficialModifiers(roller) + getHarmfulModifiers(roller) + getNeutralModifiers(roller)
+        return templateInstantiator.generateGameObject(
+            template = template,
+            modifierTemplates = selectedModifiers.distinct(),
+        )
+    }
+
+    private fun getBeneficialModifiers(roller: Roller): List<WeaponModifierTemplate> = getModifiers(
+        roller,
+        roller::rollBeneficialModifierCount,
+        this::getBeneficialModifierTemplates,
+    )
+
+    private fun getNeutralModifiers(roller: Roller): List<WeaponModifierTemplate> = getModifiers(
+        roller,
+        roller::rollNeutralModifierCount,
+        this::getNeutralModifierTemplates,
+    )
+
+    private fun getHarmfulModifiers(roller: Roller): List<WeaponModifierTemplate> = getModifiers(
+        roller,
+        roller::rollHarmfulModifierCount,
+        this::getHarmfulModifierTemplates,
+    )
+
+    private fun getModifiers(
+        roller: Roller,
+        modifierCountFunction : () -> Int,
+        modifierSelectorFunction: () -> List<WeaponModifierTemplate>
+    ): List<WeaponModifierTemplate> {
+        val modifierCount = modifierCountFunction()
+        return if (modifierCount > 0) {
+            val modifiers = modifierSelectorFunction()
             (1..modifierCount)
                 .map { roller.select(modifiers) }
                 .onEach { log.debug("Selected modifier ${it.label}") }
@@ -44,11 +75,6 @@ class WeaponService(
         } else {
             listOf()
         }
-
-        return templateInstantiator.generateGameObject(
-            template = template,
-            modifierTemplates = selectedModifiers,
-        )
     }
 
     @Transactional
@@ -85,12 +111,13 @@ class WeaponService(
     private fun getWeaponTemplates(
         itemLevelMin: Double,
         itemLevelMax: Double,
+        rarity: Rarity,
     ): List<WeaponTemplate> {
         val potentials = templateRepository.getTemplates(
             WeaponTemplate::class.java,
             itemLevelMin,
             itemLevelMax,
-            Rarity.COMMON
+            rarity
         ).toList()
         if (potentials.isEmpty()) {
             throw NoTemplatesException("No weapon templates found")
@@ -98,13 +125,34 @@ class WeaponService(
         return potentials
     }
 
+    private fun getBeneficialModifierTemplates() = getWeaponModifierTemplates(
+        0.0,
+        1000.0,
+        Rarity.COMMON
+    )
+
+    private fun getNeutralModifierTemplates() = getWeaponModifierTemplates(
+        -1.0,
+        1.0,
+        Rarity.COMMON
+    )
+
+    private fun getHarmfulModifierTemplates() = getWeaponModifierTemplates(
+        -1000.0,
+        0.0,
+        Rarity.COMMON
+    )
+
     private fun getWeaponModifierTemplates(
+        itemLevelMin: Double,
+        itemLevelMax: Double,
+        rarity: Rarity
     ): List<WeaponModifierTemplate> {
         val potentials = templateRepository.getTemplates(
             WeaponModifierTemplate::class.java,
-            0.0,
-            1000.0,
-            Rarity.COMMON
+            itemLevelMin,
+            itemLevelMax,
+            rarity,
         ).toList()
         if (potentials.isEmpty()) {
             throw NoTemplatesException("No weapon modifier templates found")
