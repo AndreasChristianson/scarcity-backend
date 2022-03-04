@@ -19,7 +19,7 @@ class TemplateInstantiator(
     ) {
     private val log: Logger = LoggerFactory.getLogger(TemplateInstantiator::class.java)
 
-    fun <T : GameObject> generateGameObject(
+    fun <T : GameObject> instanciateGameEntity(
         parent: GameEntity<*> = gameEntityRepo.getUniverse(),
         template: GameObjectTemplate<T>,
         modifierTemplates: Collection<ModifierTemplate<T>>,

@@ -11,11 +11,11 @@ object DegradedRoller : Roller {
     }
 
     override fun rollBeneficialModifierCount(): Int {
-        return Roller.truncatedGaussianInt(center = -.1)
+        return Roller.truncatedGaussianInt(center = -1.0)
     }
 
     override fun rollNeutralModifierCount(): Int {
-        return Roller.truncatedGaussianInt(center = 1.0)
+        return Roller.truncatedGaussianInt(center = -1.0)
     }
 
     override fun rollHarmfulModifierCount(): Int {

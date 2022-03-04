@@ -6,6 +6,7 @@ import com.pessimisticit.scarcitybackend.entities.changes.Change
 import com.pessimisticit.scarcitybackend.entities.templates.GameObjectTemplate
 import com.pessimisticit.scarcitybackend.objects.GameObject
 import javax.persistence.*
+import kotlin.math.abs
 
 @Entity
 @Table(name = "game_object")
@@ -41,7 +42,7 @@ class GameEntity<T : GameObject> : TemplatedEntity<GameObjectTemplate<T>>() {
         }
 
         modifiers
-            .sortedBy { it.template.baseLevel }
+            .sortedBy { abs(it.template.baseLevel) }
             .fold(baseInstance) { instance, modifier ->
                 modifier.modify(instance)
             }

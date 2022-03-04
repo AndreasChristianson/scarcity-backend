@@ -11,11 +11,11 @@ object CommonRoller : Roller {
     }
 
     override fun rollBeneficialModifierCount(): Int {
-        return Roller.truncatedGaussianInt(center = -.5)
+        return Roller.truncatedGaussianInt(center = -1.0)
     }
 
     override fun rollNeutralModifierCount(): Int {
-        return Roller.truncatedGaussianInt(center = -0.5)
+        return Roller.truncatedGaussianInt(center = -1.0)
     }
 
     override fun rollHarmfulModifierCount(): Int {

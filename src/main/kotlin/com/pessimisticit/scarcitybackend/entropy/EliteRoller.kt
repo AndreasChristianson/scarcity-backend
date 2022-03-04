@@ -27,6 +27,6 @@ object EliteRoller : Roller {
     )
 
     override fun rollHarmfulModifierCount(): Int = Roller.truncatedGaussianInt(
-        center = -2.0,
+        center = -1.0,
     )
 }

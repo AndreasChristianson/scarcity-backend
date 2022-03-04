@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory
 import javax.transaction.Transactional
 import kotlin.reflect.KClass
 
-abstract class GenerationService<G : GameObject, T: EquipmentTemplate<G>, MT:ModifierTemplate<G>> {
+abstract class GenerationService<G : GameObject, T : EquipmentTemplate<G>, MT : ModifierTemplate<G>> {
     abstract val templateInstantiator: TemplateInstantiator
     abstract val templateRepository: TemplateGeneratorRepository
     private val log: Logger = LoggerFactory.getLogger(GenerationService::class.java)
@@ -27,45 +27,67 @@ abstract class GenerationService<G : GameObject, T: EquipmentTemplate<G>, MT:Mod
         val templates = getTemplates(
             itemLevelMin = itemLevelMin,
             itemLevelMax = itemLevelMax,
-            rarity = Rarity.COMMON
         )
         log.info("Generating equipment between $itemLevelMin and $itemLevelMax using ${roller::class.simpleName}")
         val template = roller.select(templates)
         log.trace("Selected ${template.label}")
-        val selectedModifiers =
-            getBeneficialModifiers(roller) + getHarmfulModifiers(roller) + getNeutralModifiers(roller)
-        return templateInstantiator.generateGameObject(
+        val selectedModifiers = selectModifiers(roller)
+        log.trace("Selected ${selectedModifiers.size} modifiers")
+        return templateInstantiator.instanciateGameEntity(
             template = template,
             modifierTemplates = selectedModifiers.distinct(),
         )
     }
 
-    private fun getBeneficialModifiers(roller: Roller): List<ModifierTemplate<G>> = getModifiers(
+    private fun selectModifiers(roller: Roller): List<ModifierTemplate<G>> {
+        val allModifiers = getModifierTemplates(-1000.0, 1000.0)
+        return getBeneficialModifiers(
+            roller,
+            allModifiers
+        ) + getHarmfulModifiers(
+            roller,
+            allModifiers
+        ) + getNeutralModifiers(
+            roller,
+            allModifiers
+        )
+    }
+
+    private fun getBeneficialModifiers(
+        roller: Roller,
+        modifiers: List<ModifierTemplate<G>>
+    ): List<ModifierTemplate<G>> = getModifiers(
         roller,
-        roller::rollBeneficialModifierCount,
-        this::getBeneficialModifierTemplates,
+        roller.rollBeneficialModifierCount(),
+        modifiers.filter { it.baseLevel in 0.0..1000.0 }
     )
 
-    private fun getNeutralModifiers(roller: Roller): List<ModifierTemplate<G>> = getModifiers(
-        roller,
-        roller::rollNeutralModifierCount,
-        this::getNeutralModifierTemplates,
-    )
+    private fun getNeutralModifiers(
+        roller: Roller,
+        modifiers: List<ModifierTemplate<G>>
+    ): List<ModifierTemplate<G>> =
+        getModifiers(
+            roller,
+            roller.rollNeutralModifierCount(),
+            modifiers.filter { it.baseLevel in -1.0..1.0 }
+        )
 
-    private fun getHarmfulModifiers(roller: Roller): List<ModifierTemplate<G>> = getModifiers(
-        roller,
-        roller::rollHarmfulModifierCount,
-        this::getHarmfulModifierTemplates,
-    )
+    private fun getHarmfulModifiers(
+        roller: Roller,
+        modifiers: List<ModifierTemplate<G>>
+    ): List<ModifierTemplate<G>> =
+        getModifiers(
+            roller,
+            roller.rollHarmfulModifierCount(),
+            modifiers.filter { it.baseLevel in -1000.0..0.0 }
+        )
 
     private fun getModifiers(
         roller: Roller,
-        modifierCountFunction: () -> Int,
-        modifierSelectorFunction: () -> List<ModifierTemplate<G>>
+        modifierCount: Int,
+        modifiers: List<ModifierTemplate<G>>
     ): List<ModifierTemplate<G>> {
-        val modifierCount = modifierCountFunction()
         return if (modifierCount > 0) {
-            val modifiers = modifierSelectorFunction()
             (1..modifierCount)
                 .map { roller.select(modifiers) }
                 .onEach { log.debug("Selected modifier ${it.label}") }
@@ -87,7 +109,7 @@ abstract class GenerationService<G : GameObject, T: EquipmentTemplate<G>, MT:Mod
             .stream().map { getTemplateModifierByLabel(it) }
             .toList()
 
-        return templateInstantiator.generateGameObject(
+        return templateInstantiator.instanciateGameEntity(
             template = template,
             modifierTemplates = modifiers,
         )
@@ -109,13 +131,12 @@ abstract class GenerationService<G : GameObject, T: EquipmentTemplate<G>, MT:Mod
     private fun getTemplates(
         itemLevelMin: Double,
         itemLevelMax: Double,
-        rarity: Rarity,
     ): List<EquipmentTemplate<G>> {
         val potentials = templateRepository.getTemplates(
             templateEntityClass.java,
             itemLevelMin,
             itemLevelMax,
-            rarity
+            Rarity.COMMON
         ).toList()
         if (potentials.isEmpty()) {
             throw NoTemplatesException("No templates found")
@@ -123,34 +144,15 @@ abstract class GenerationService<G : GameObject, T: EquipmentTemplate<G>, MT:Mod
         return potentials
     }
 
-    private fun getBeneficialModifierTemplates() = getModifierTemplates(
-        0.0,
-        1000.0,
-        Rarity.COMMON
-    )
-
-    private fun getNeutralModifierTemplates() = getModifierTemplates(
-        -1.0,
-        1.0,
-        Rarity.COMMON
-    )
-
-    private fun getHarmfulModifierTemplates() = getModifierTemplates(
-        -1000.0,
-        0.0,
-        Rarity.COMMON
-    )
-
     private fun getModifierTemplates(
         itemLevelMin: Double,
         itemLevelMax: Double,
-        rarity: Rarity
     ): List<ModifierTemplate<G>> {
         val potentials = templateRepository.getTemplates(
             modifierTemplateEntityClass.java,
             itemLevelMin,
             itemLevelMax,
-            rarity,
+            Rarity.COMMON,
         ).toList()
         if (potentials.isEmpty()) {
             throw NoTemplatesException("No modifier templates found")
