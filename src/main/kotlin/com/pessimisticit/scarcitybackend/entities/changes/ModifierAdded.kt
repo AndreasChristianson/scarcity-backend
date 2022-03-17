@@ -6,6 +6,6 @@ import javax.persistence.Entity
 @Entity
 class ModifierAdded : Change() {
     override fun getChangeMessage(): String {
-        return "$parent gained modifier $modifier via $source"
+        return "$parent added to ${parent.parent} via $source"
     }
 }

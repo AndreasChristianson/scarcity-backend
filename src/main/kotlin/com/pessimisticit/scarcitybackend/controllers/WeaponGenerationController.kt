@@ -1,87 +1,47 @@
 package com.pessimisticit.scarcitybackend.controllers
 
 import com.pessimisticit.scarcitybackend.entities.GameEntity
-import com.pessimisticit.scarcitybackend.entities.templates.WeaponTemplate
-import com.pessimisticit.scarcitybackend.entities.templates.modifiers.WeaponModifierTemplate
-import com.pessimisticit.scarcitybackend.entropy.CommonRoller
-import com.pessimisticit.scarcitybackend.entropy.DegradedRoller
-import com.pessimisticit.scarcitybackend.entropy.EliteRoller
-import com.pessimisticit.scarcitybackend.exceptions.NoTemplatesException
-import com.pessimisticit.scarcitybackend.objects.Weapon
-import com.pessimisticit.scarcitybackend.services.GenerationService
+import com.pessimisticit.scarcitybackend.entities.equipment.weapons.Weapon
 import com.pessimisticit.scarcitybackend.services.WeaponService
 import org.springframework.data.rest.webmvc.BasePathAwareController
 import org.springframework.hateoas.server.EntityLinks
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 
 
 @BasePathAwareController
 class WeaponGenerationController(
-    val weaponService: GenerationService<Weapon,WeaponTemplate,WeaponModifierTemplate>,
+    val weaponService: WeaponService,
     val entityLinks: EntityLinks
 ) {
 
-    @RequestMapping("/generate/common-weapon")
-    fun generateCommonWeapon(
-        @RequestParam(defaultValue = "1000") itemLevelMax: Double,
-        @RequestParam(defaultValue = "0") itemLevelMin: Double,
-    ): ResponseEntity<GameEntity<Weapon>> {
-        val generated = weaponService.generate(
-            itemLevelMax = itemLevelMax,
-            itemLevelMin = itemLevelMin,
-            roller = CommonRoller
-        )
-        val link = entityLinks.linkForItemResource(GameEntity::class.java, generated.id)
-        return ResponseEntity.created(link.toUri()).body(generated)
-    }
-
-    @RequestMapping("/generate/elite-weapon")
-    fun generateEliteWeapon(
-        @RequestParam(defaultValue = "1000") itemLevelMax: Double,
-        @RequestParam(defaultValue = "0") itemLevelMin: Double,
-    ): ResponseEntity<GameEntity<Weapon>> {
-        val generated = weaponService.generate(
-            itemLevelMax = itemLevelMax,
-            itemLevelMin = itemLevelMin,
-            roller = EliteRoller
-        )
-        val link = entityLinks.linkForItemResource(GameEntity::class.java, generated.id)
-        return ResponseEntity.created(link.toUri()).body(generated)
-    }
-
-    @RequestMapping("/generate/degraded-weapon")
-    fun generateDegradedWeapon(
-        @RequestParam(defaultValue = "1000") itemLevelMax: Double,
-        @RequestParam(defaultValue = "0") itemLevelMin: Double,
-    ): ResponseEntity<GameEntity<Weapon>> {
-        val generated = weaponService.generate(
-            itemLevelMax = itemLevelMax,
-            itemLevelMin = itemLevelMin,
-            roller = DegradedRoller
-        )
-        val link = entityLinks.linkForItemResource(GameEntity::class.java, generated.id)
-        return ResponseEntity.created(link.toUri()).body(generated)
-    }
-
     @RequestMapping("/generate/weapon")
-    fun generateSpecificWeapon(
-        @RequestParam templateName: String,
-        @RequestParam(name = "modifier", defaultValue = "") modifiers: Collection<String>,
-    ): ResponseEntity<GameEntity<Weapon>> {
+    fun generateCommonWeapon(
+        @RequestParam(defaultValue = "1000.0") itemLevelMax: Double,
+        @RequestParam(defaultValue = "0.0") itemLevelMin: Double,
+        @RequestParam(defaultValue = "0.0") modifierQualitySkew: Double,
+        @RequestParam(defaultValue = "0.0") modifierQuantitySkew: Double,
+        @RequestParam(defaultValue = "0.0") raritySkew: Double,
+        @RequestParam(required = false) name: String?,
+    ): ResponseEntity<*> {
         val generated = weaponService.generate(
-            templateName = templateName,
-            modifiersTemplateNames = modifiers
-        )
+            targetClass = Weapon::class.java,
+            itemLevelMax = itemLevelMax,
+            itemLevelMin = itemLevelMin,
+//            modifierQualitySkew = modifierQualitySkew,
+//            modifierQuantitySkew = modifierQuantitySkew,
+            raritySkew = raritySkew,
+        ) ?: return ResponseEntity.badRequest().body("No options matched your query.")
+
         val link = entityLinks.linkForItemResource(GameEntity::class.java, generated.id)
         return ResponseEntity.created(link.toUri()).body(generated)
     }
 
-    @ExceptionHandler(NoTemplatesException::class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    @ResponseBody
-    fun handleException(e: NoTemplatesException?): String? {
-        return e?.message
-    }
+//    @ExceptionHandler(NoTemplatesException::class)
+//    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+//    @ResponseBody
+//    fun handleException(e: NoTemplatesException?): String? {
+//        return e?.message
+//    }
 }

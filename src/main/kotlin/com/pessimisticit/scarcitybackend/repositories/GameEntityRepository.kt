@@ -1,14 +1,15 @@
 package com.pessimisticit.scarcitybackend.repositories
 
 import com.pessimisticit.scarcitybackend.entities.GameEntity
-import com.pessimisticit.scarcitybackend.objects.Universe
+import com.pessimisticit.scarcitybackend.entities.rooms.Universe
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.data.rest.core.annotation.RepositoryRestResource
+import org.springframework.data.rest.core.annotation.RestResource
 import java.util.*
 
 @RepositoryRestResource
-interface GameEntityRepository : PagingAndSortingRepository<GameEntity<*>, UUID> {
+interface GameEntityRepository : PagingAndSortingRepository<GameEntity, UUID> {
 
     @Query(
         """
@@ -16,5 +17,5 @@ interface GameEntityRepository : PagingAndSortingRepository<GameEntity<*>, UUID>
         where u.id = '00000000-0000-0000-0000-000000000000'
         """
     )
-    fun getUniverse(): GameEntity<Universe>
+    fun getUniverse(): GameEntity
 }

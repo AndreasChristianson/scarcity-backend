@@ -5,7 +5,7 @@ import kotlin.random.Random
 class UniformDistribution(
     var min: Double,
     var max: Double
-    ) : DistributionConfiguration {
+) : DistributionConfiguration {
     init {
         require(max > min) {
             "Max must be greater than min"
@@ -17,8 +17,8 @@ class UniformDistribution(
     }
 
     override fun scale(damageMultiplier: Double) {
-        min*=damageMultiplier
-        max*=damageMultiplier
+        min *= damageMultiplier
+        max *= damageMultiplier
     }
 
     override val average: Double

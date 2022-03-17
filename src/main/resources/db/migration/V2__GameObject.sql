@@ -1,28 +1,27 @@
-CREATE TABLE template (
-    id             uuid PRIMARY KEY
-    ,icon          text
-    ,description   text NOT NULL
-    ,label         text NOT NULL
-    ,dtype         text NOT NULL
-);
+--CREATE TABLE template (
+--    id             uuid PRIMARY KEY
+--    ,icon          text
+--    ,description   text NOT NULL
+--    ,label         text NOT NULL
+--    ,dtype         text NOT NULL
+--);
 
 CREATE TABLE game_object (
     id             uuid PRIMARY KEY
-    ,template_id   uuid NOT NULL REFERENCES template (id)
     ,parent_id     uuid NOT NULL REFERENCES game_object (id)
+    ,dtype         text NOT NULL
     ,x             float
     ,y             float
 );
 
 CREATE INDEX ON game_object(parent_id);
 
-CREATE TABLE modifier (
-    id             uuid PRIMARY KEY
-    ,template_id   uuid NOT NULL REFERENCES template (id)
-    ,parent_id     uuid REFERENCES game_object (id)
-    ,dtype         text NOT NULL
-);
-CREATE INDEX ON modifier(parent_id);
+--CREATE TABLE modifier (
+--    id             uuid PRIMARY KEY
+--    ,class         text NOT NULL
+--    ,parent_id     uuid REFERENCES game_object (id)
+--);
+--CREATE INDEX ON modifier(parent_id);
 
 CREATE TABLE change (
     id             uuid PRIMARY KEY
@@ -32,7 +31,7 @@ CREATE TABLE change (
     ,dtype         text NOT NULL
 
     ,source_id      uuid REFERENCES game_object (id)
-    ,modifier_id    uuid REFERENCES modifier (id)
+--    ,modifier_id    uuid REFERENCES modifier (id)
 );
 
 CREATE INDEX ON change(parent_id);
