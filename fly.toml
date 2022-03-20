@@ -12,7 +12,7 @@ processes = []
   allowed_public_ports = []
   auto_rollback = true
 
-[[static]]
+[[statics]]
   guest_path = "/static"
   url_prefix = "/static"
 
