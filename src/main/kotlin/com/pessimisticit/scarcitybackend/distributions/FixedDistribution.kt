@@ -6,7 +6,7 @@ class FixedDistribution(var fixed: Double) : DistributionConfiguration {
     }
 
     override fun scale(damageMultiplier: Double) {
-        fixed*=damageMultiplier
+        fixed *= damageMultiplier
     }
 
     override val average: Double

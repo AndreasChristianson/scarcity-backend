@@ -7,9 +7,6 @@ enum class DamageType(val icon: URI) {
     PHYSICAL(URI("http://example.com")),
     FROST(URI("http://example.com")),
     FIRE(URI("http://example.com")),
-    ELECTRIC(URI("http://example.com")),
-    POISON(URI("http://example.com")),
-    ENERGY(URI("http://example.com")),
     ;
 
     override fun toString(): String {

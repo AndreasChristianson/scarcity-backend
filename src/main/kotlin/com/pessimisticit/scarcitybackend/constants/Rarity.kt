@@ -1,13 +1,12 @@
 package com.pessimisticit.scarcitybackend.constants
 
 enum class Rarity(
-    val relativeWeight: Int,
-    val budgetMultiplier: Double,
+    val relativeWeight: Double,
 ) {
-    NEVER(0, 1.0),
-    COMMON(1000, 1.0),
-    UNCOMMON(400, 1.02),
-    SCARCE(100, 1.04),
-    RARE(10, 1.08),
-    EXTRAORDINARY(1, 1.16),
+    NEVER(0.0),
+    COMMON(1000.0),
+    UNCOMMON(400.0),
+    SCARCE(100.0),
+    RARE(10.0),
+    EXTRAORDINARY(1.0),
 }

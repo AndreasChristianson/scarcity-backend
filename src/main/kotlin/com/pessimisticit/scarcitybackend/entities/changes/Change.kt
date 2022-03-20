@@ -1,41 +1,33 @@
 package com.pessimisticit.scarcitybackend.entities.changes
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference
-import com.pessimisticit.scarcitybackend.entities.AbstractJpaPersistable
-import com.pessimisticit.scarcitybackend.entities.GameEntity
-import com.pessimisticit.scarcitybackend.entities.Modifier
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.pessimisticit.scarcitybackend.entities.GameObject
+import org.springframework.hateoas.RepresentationModel
+import java.time.Instant
 import java.util.*
 import javax.persistence.*
 
 @Entity
 @Table(name = "change")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
-abstract class Change : AbstractJpaPersistable() {
-    @ManyToOne(targetEntity = GameEntity::class)
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
+class Change : RepresentationModel<Change>() {
+    @Id
+    var id: UUID = UUID.randomUUID()
+
+    @ManyToOne(targetEntity = GameObject::class)
     @JoinColumn
-    @JsonBackReference
-    open lateinit var parent: GameEntity<*>
+    @JsonIgnore
+    lateinit var gameObject: GameObject
 
-    open var gameTime: Long = 0
+    var gameTime: Long = 0
 
-    @Temporal(TemporalType.TIMESTAMP)
-    open var stamp: Date = Date()
+    var stamp: Instant = Instant.now()
 
-    @ManyToOne(targetEntity = Modifier::class)
-    @JoinColumn
-    @JsonBackReference
-    open var modifier: Modifier<*>? = null
-
-    @ManyToOne(optional = true, targetEntity = GameEntity::class)
-    @JoinColumn
-    @JsonBackReference
-    open var source: GameEntity<*>? = null
-
-    abstract fun getChangeMessage(): String
+    var message: String = ""
 
     override fun toString(): String {
-        return "$gameTime - $stamp ($id): ${getChangeMessage()}"
+        return "$gameTime|$stamp|${gameObject.id}: $message"
     }
 }
