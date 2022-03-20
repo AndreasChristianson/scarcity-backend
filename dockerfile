@@ -12,6 +12,7 @@ workdir app
 COPY --from=builder spring-boot-loader ./
 COPY --from=builder dependencies ./
 COPY --from=builder snapshot-dependencies ./
+COPY static ./static/
 RUN true
 COPY --from=builder application ./
 ARG COMMIT
