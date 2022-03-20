@@ -1,12 +1,9 @@
 package com.pessimisticit.scarcitybackend.controllers
 
-import com.pessimisticit.scarcitybackend.controllers.hateos.GameObjectAssembler
-import com.pessimisticit.scarcitybackend.entities.GameObject
+import com.pessimisticit.scarcitybackend.controllers.hateoas.GameObjectAssembler
 import com.pessimisticit.scarcitybackend.entities.equipment.weapons.Weapon
 import com.pessimisticit.scarcitybackend.services.WeaponService
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder
-import org.springframework.hateoas.server.mvc.linkTo
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod

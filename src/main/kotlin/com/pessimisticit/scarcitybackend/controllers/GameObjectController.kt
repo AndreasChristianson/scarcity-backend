@@ -1,9 +1,7 @@
 package com.pessimisticit.scarcitybackend.controllers
 
-import com.pessimisticit.scarcitybackend.controllers.hateos.GameObjectAssembler
+import com.pessimisticit.scarcitybackend.controllers.hateoas.GameObjectAssembler
 import com.pessimisticit.scarcitybackend.entities.GameObject
-import com.pessimisticit.scarcitybackend.entities.changes.Change
-import com.pessimisticit.scarcitybackend.repositories.ChangeRepository
 import com.pessimisticit.scarcitybackend.repositories.GameObjectRepository
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault

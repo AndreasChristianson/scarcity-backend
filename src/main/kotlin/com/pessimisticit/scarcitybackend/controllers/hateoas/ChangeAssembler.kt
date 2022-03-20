@@ -1,10 +1,9 @@
-package com.pessimisticit.scarcitybackend.controllers.hateos
+package com.pessimisticit.scarcitybackend.controllers.hateoas
 
 import com.pessimisticit.scarcitybackend.controllers.ChangeController
 import com.pessimisticit.scarcitybackend.controllers.GameObjectController
 import com.pessimisticit.scarcitybackend.entities.changes.Change
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo
 import org.springframework.stereotype.Component
 
