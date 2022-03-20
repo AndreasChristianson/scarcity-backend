@@ -2,13 +2,9 @@ package com.pessimisticit.scarcitybackend.modifiers
 
 import com.pessimisticit.scarcitybackend.constants.ModifierType
 import com.pessimisticit.scarcitybackend.constants.Rarity
-import com.pessimisticit.scarcitybackend.distributions.FixedDistribution
 import com.pessimisticit.scarcitybackend.entities.Modifier
 import com.pessimisticit.scarcitybackend.entities.equipment.weapons.Weapon
 import com.pessimisticit.scarcitybackend.entropy.LootableModifier
-import com.pessimisticit.scarcitybackend.mechanics.damage.DamageShape
-import com.pessimisticit.scarcitybackend.mechanics.damage.DamageSpecification
-import com.pessimisticit.scarcitybackend.mechanics.damage.DamageType
 import java.net.URI
 import javax.persistence.Entity
 
@@ -18,27 +14,25 @@ import javax.persistence.Entity
     modifierType = ModifierType.HELPFUL,
     modifierTargets = [Weapon::class]
 )
-open class Fiery : Modifier() {
+open class PerfectlyWeighted : Modifier() {
     override val icon: URI
         get() = URI("http://example.com")
     override val description: String
-        get() = "This weapon deals a small amount of fire damage each swing"
+        get() = "It feels like an extension of one's arm"
     override val name: String
-        get() = "fiery"
+        get() = "perfectly weighted"
     override val priority: Double
-        get() = 10.0
+        get() = 5.0
 
-    override fun modifyDamageSpecifications(damageSpecifications: Sequence<DamageSpecification>): Sequence<DamageSpecification> {
-        return damageSpecifications.plus(
-            DamageSpecification(
-                DamageType.FIRE,
-                DamageShape.PROXIMITY,
-                FixedDistribution(5.0)
-            )
-        )
+    override fun modifyDps(dps: Double): Double {
+        return dps * 1.1
+    }
+
+    override fun modifySwingResetDuration(swingResetDuration: Long): Long {
+        return (swingResetDuration*0.9).toLong()
     }
 
     override fun modifyPrefix(prefix: String?): String {
-        return "fiery"
+        return "perfectly weighted"
     }
 }

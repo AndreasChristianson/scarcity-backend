@@ -25,7 +25,7 @@ class ChangeService(
             gameTime = timeService.getGameTime
             message = "Created."
         })
-        log.trace(created.toString())
+        log.debug(created.toString())
     }
 
     fun modifierAdded(gameObject: GameObject, modifier: Modifier) {
@@ -34,6 +34,6 @@ class ChangeService(
             gameTime = timeService.getGameTime
             message = "Modifier [$modifier] added."
         })
-        log.trace(modified.toString())
+        log.debug(modified.toString())
     }
 }

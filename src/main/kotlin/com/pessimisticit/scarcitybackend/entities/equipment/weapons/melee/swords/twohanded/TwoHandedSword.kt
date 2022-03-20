@@ -16,7 +16,7 @@ abstract class TwoHandedSword : Sword() {
     override val baseSwingResetDuration: Long
         get() = (super.baseSwingResetDuration * 1.6).toLong()
     override val dpsBudgetMultiplier: Double
-        get() = 1.7
+        get() = 1.6
     override val baseMaxDurability: Double
         get() = super.baseMaxDurability*1.5
 }

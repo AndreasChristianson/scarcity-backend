@@ -38,7 +38,6 @@ abstract class GameObject : Displayable, RepresentationModel<GameObject>() {
     )
     open var changes: MutableCollection<Change> = mutableListOf()
 
-    @JsonIgnore
     @OneToMany(
         fetch = FetchType.EAGER,
         mappedBy = "parent",

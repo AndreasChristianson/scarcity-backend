@@ -55,8 +55,7 @@ class WeaponService(
             min = 0,
             center = modifierQuantitySkew ?: 0.0
         )
-        val modifiers = (1..modifierCount)
-            .mapNotNull { modifierTable.select(createEntropySource(modifierQualitySkew)) }
+        val modifiers = modifierTable.selectMultiple(modifierCount, createEntropySource(modifierQualitySkew))
 
         val withModifiers = gameObjectService.addModifiers(
             saved,

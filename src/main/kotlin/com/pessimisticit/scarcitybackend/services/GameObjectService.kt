@@ -31,7 +31,7 @@ class GameObjectService(
 
     fun <T : GameObject> addModifiers(
         gameObject: T,
-        modifiers: List<Modifier>
+        modifiers: Sequence<Modifier>
     ): T {
         modifiers.forEach { addModifier(gameObject, it) }
         return gameObject

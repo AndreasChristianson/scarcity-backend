@@ -4,6 +4,7 @@ import com.pessimisticit.scarcitybackend.constants.Tag
 import com.pessimisticit.scarcitybackend.formatting.NumberFormatter.formatDecimal
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import kotlin.math.sign
 
 class Table<T>(
     val table: Sequence<ItemGenerator<out T>>
@@ -12,13 +13,10 @@ class Table<T>(
 
     private val cleaned by lazy {
         table
-            .distinct()
-            .sortedBy { it.rarity }
+            .sortedBy { (it.level.sign + 2.0) * it.rarity.relativeWeight }
+            .toList()
     }
 
-    private val count by lazy {
-        cleaned.count()
-    }
     private val totalRarity: Double by lazy {
         cleaned
             .map { it.rarity.relativeWeight }
@@ -31,25 +29,34 @@ class Table<T>(
         return Table(table = this.table.filter { predicate(it) })
     }
 
-    fun select(
+    fun selectGenerator(
         randomDoubleFunction: (Double) -> Double
-    ): T? {
+    ): ItemGenerator<out T>? {
         val target = randomDoubleFunction.invoke(totalRarity)
         var accumulator = 0.0
-        val selected = cleaned
+        log.trace(
+            "Rolled ${formatDecimal(target)} out of $totalRarity."
+        )
+        return cleaned
             .dropWhile {
                 accumulator += it.rarity.relativeWeight
                 accumulator <= target
             }
-            .firstOrNull() ?: return null
-        val generated = selected
-            .generator
-            .invoke()
-        log.debug(
-            "Rolled ${formatDecimal(target)} out of $totalRarity." +
-                    " Generated a ${generated!!::class.simpleName} from $count options."
-        )
-        return generated
+            .firstOrNull()
+    }
+
+    fun select(
+        randomDoubleFunction: (Double) -> Double
+    ): T? {
+        return selectMultiple(1, randomDoubleFunction).firstOrNull()
+    }
+
+    fun selectMultiple(count: Int, entropySource: (Double) -> Double): Sequence<T> {
+        return (1..count)
+            .asSequence()
+            .mapNotNull { selectGenerator(entropySource) }
+            .distinct()
+            .map { it.generator.invoke() }
     }
 }
 
