@@ -1,12 +1,12 @@
 package com.pessimisticit.scarcitybackend.entities.rooms
 
 
-import com.pessimisticit.scarcitybackend.entities.GameEntity
+import com.pessimisticit.scarcitybackend.entities.GameObject
 import java.net.URI
 import javax.persistence.Entity
 
 @Entity
-class Universe : GameEntity() {
+class Universe : GameObject() {
     override val icon: URI
         get() = URI("http://some-galaxy.image")
     override val description: String

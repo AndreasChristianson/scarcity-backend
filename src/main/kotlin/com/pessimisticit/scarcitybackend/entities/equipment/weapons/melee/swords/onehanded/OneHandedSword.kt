@@ -9,7 +9,7 @@ import javax.persistence.Entity
 abstract class OneHandedSword : Sword() {
     override val slot: WeaponSlot
         get() = WeaponSlot.ONE_HAND
-    override val maxRange: Double
+    override val baseRange: Double
         get() = 0.6
     override val baseWeight: Double
         get() = super.baseWeight * 0.9

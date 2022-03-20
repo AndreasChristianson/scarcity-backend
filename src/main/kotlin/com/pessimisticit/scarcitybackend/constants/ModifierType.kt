@@ -1,4 +1,4 @@
-package com.pessimisticit.scarcitybackend.entities
+package com.pessimisticit.scarcitybackend.constants
 
 enum class ModifierType(
     val baseLevel: Double

@@ -1,5 +1,6 @@
 package com.pessimisticit.scarcitybackend.entropy
 
+import com.pessimisticit.scarcitybackend.constants.Tag
 import com.pessimisticit.scarcitybackend.formatting.NumberFormatter.formatDecimal
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -15,17 +16,13 @@ class Table<T>(
             .sortedBy { it.rarity }
     }
 
-    //    private val averageRarity by lazy {
-//        totalRarity / count
-//    }
     private val count by lazy {
         cleaned.count()
     }
-    private val totalRarity:Double by lazy {
+    private val totalRarity: Double by lazy {
         cleaned
             .map { it.rarity.relativeWeight }
             .sum()
-            .toDouble()
     }
 
     fun filter(
@@ -49,10 +46,15 @@ class Table<T>(
             .generator
             .invoke()
         log.debug(
-            "Rolled ${formatDecimal(target / totalRarity * 100)} out of 100." +
+            "Rolled ${formatDecimal(target)} out of $totalRarity." +
                     " Generated a ${generated!!::class.simpleName} from $count options."
         )
         return generated
     }
-
 }
+
+fun <T> Table<T>.filterByItemLevel(min: Double, max: Double): Table<T> =
+    this.filter { it.level in min..max }
+
+fun <T> Table<T>.filterByTag(tag: Tag?): Table<T> =
+    tag?.let { this.filter { generator -> generator.tags.contains(it) } } ?: this

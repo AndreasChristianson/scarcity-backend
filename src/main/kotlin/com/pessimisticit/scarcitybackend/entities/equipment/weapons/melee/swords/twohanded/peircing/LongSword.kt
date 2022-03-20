@@ -1,13 +1,13 @@
 package com.pessimisticit.scarcitybackend.entities.equipment.weapons.melee.swords.onehanded.peircing
 
 import com.pessimisticit.scarcitybackend.constants.Rarity
-import com.pessimisticit.scarcitybackend.entities.Lootable
+import com.pessimisticit.scarcitybackend.entropy.Lootable
 import java.net.URI
 import javax.persistence.Entity
 
 @Entity
 @Lootable(
-    rarity = Rarity.COMMON,
+    rarity = Rarity.UNCOMMON,
     level = 15.0
 )
 open class LongSword : PiercingTwoHandedSword() {

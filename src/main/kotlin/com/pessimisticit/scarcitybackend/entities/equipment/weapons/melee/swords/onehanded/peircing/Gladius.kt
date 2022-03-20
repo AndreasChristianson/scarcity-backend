@@ -2,7 +2,7 @@ package com.pessimisticit.scarcitybackend.entities.equipment.weapons.melee.sword
 
 import com.pessimisticit.scarcitybackend.constants.Rarity
 import com.pessimisticit.scarcitybackend.constants.Tag
-import com.pessimisticit.scarcitybackend.entities.Lootable
+import com.pessimisticit.scarcitybackend.entropy.Lootable
 import java.net.URI
 import javax.persistence.Entity
 

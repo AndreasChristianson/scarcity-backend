@@ -6,7 +6,7 @@ import javax.persistence.Entity
 
 @Entity
 abstract class RangedWeapon : Weapon() {
-    override val minRange: Double
-        get() = 0.0 //meters
+    override val baseMinRange: Double
+        get() = 5.0 //meters
 }
 

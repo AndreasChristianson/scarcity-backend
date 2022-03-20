@@ -14,24 +14,24 @@ import javax.persistence.Entity
 abstract class Weapon : Equipment() {
     abstract val damageShape: DamageShape
     abstract val slot: WeaponSlot
-    abstract val maxRange: Double
-    abstract val minRange: Double
+    protected abstract val baseRange: Double
+    protected abstract val baseMinRange: Double
     abstract val weaponType: WeaponType
 
-    val damagePerSwing
+    private val damagePerSwing
         get() = dps / swingsPerSecond
-    val swingsPerSecond
-        get() = TURN_DURATION / swingResetDuration
+    private val swingsPerSecond: Double
+        get() = TURN_DURATION / swingResetDuration.toDouble()
 
-    open val dpsBudgetMultiplier: Double
+    protected open val dpsBudgetMultiplier: Double
         get() = 1.0
     open val damageType: DamageType
         get() = DamageType.PHYSICAL
-    open val baseSwingResetDuration: Long
+    protected open val baseSwingResetDuration: Long
         get() = 1500
     val swingResetDuration
         get() = applyModifiers(baseSwingResetDuration, Modifier::modifySwingResetDuration)
-    val baseDamage
+    private val baseDamage
         get() = sequenceOf(
             DamageSpecification(
                 damageType,
@@ -41,9 +41,11 @@ abstract class Weapon : Equipment() {
         )
     val damage
         get() = applyModifiers(baseDamage, Modifier::modifyDamageSpecifications)
-    val baseDps: Double
+    val averageDps
+        get() = damage.sumOf { it.distribution.average } * swingsPerSecond
+    private val baseDps: Double
         get() = itemLevel * dpsBudgetMultiplier
-    val dps
+    private val dps
         get() = applyModifiers(baseDps, Modifier::modifyDps)
 
     override val baseWeight: Double
