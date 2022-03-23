@@ -1,9 +1,11 @@
-package com.pessimisticit.scarcitybackend.modifiers
+package com.pessimisticit.scarcitybackend.modifiers.sturdy
 
+import com.pessimisticit.scarcitybackend.constants.Color
 import com.pessimisticit.scarcitybackend.constants.ModifierType
 import com.pessimisticit.scarcitybackend.constants.Rarity
 import com.pessimisticit.scarcitybackend.entities.equipment.weapons.Weapon
 import com.pessimisticit.scarcitybackend.entropy.LootableModifier
+import com.pessimisticit.scarcitybackend.images.SvgIcon
 import javax.persistence.Entity
 
 @Entity
@@ -13,10 +15,10 @@ import javax.persistence.Entity
     modifierTargets = [Weapon::class]
 )
 open class Masterwork : PerfectlyWeighted() {
+    override val icon: SvgIcon
+        get() = super.icon.withColor(Color.GOLD.hex)
     override val name: String
         get() = "masterwork"
-    override val priority: Double
-        get() = 9.0
 
     override fun modifyDps(dps: Double): Double {
         return dps * 1.2
@@ -24,9 +26,5 @@ open class Masterwork : PerfectlyWeighted() {
 
     override fun modifyDurability(durability: Double): Double {
         return durability * 1.1
-    }
-
-    override fun modifyPrefix(prefix: String?): String {
-        return "masterwork"
     }
 }

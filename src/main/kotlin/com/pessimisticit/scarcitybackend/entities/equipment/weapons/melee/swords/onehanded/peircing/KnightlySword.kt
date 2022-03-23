@@ -1,9 +1,7 @@
 package com.pessimisticit.scarcitybackend.entities.equipment.weapons.melee.swords.onehanded.peircing
 
 import com.pessimisticit.scarcitybackend.constants.Rarity
-import com.pessimisticit.scarcitybackend.constants.Tag
 import com.pessimisticit.scarcitybackend.entropy.Lootable
-import java.net.URI
 import javax.persistence.Entity
 
 @Entity
@@ -12,8 +10,6 @@ import javax.persistence.Entity
     level = 15.0,
 )
 class KnightlySword : PiercingOneHandedSword() {
-    override val icon: URI
-        get() = URI("https://todo.com")
     override val description: String
         get() = """
                 |A straight, double-edged weapon with a single-handed, cruciform hilt

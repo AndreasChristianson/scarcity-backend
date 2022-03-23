@@ -1,11 +1,15 @@
-package com.pessimisticit.scarcitybackend.modifiers
+package com.pessimisticit.scarcitybackend.modifiers.sturdy
 
+import com.pessimisticit.scarcitybackend.constants.Color
 import com.pessimisticit.scarcitybackend.constants.ModifierType
 import com.pessimisticit.scarcitybackend.constants.Rarity
+import com.pessimisticit.scarcitybackend.constants.svgRoot
 import com.pessimisticit.scarcitybackend.entities.Modifier
 import com.pessimisticit.scarcitybackend.entities.equipment.Equipment
 import com.pessimisticit.scarcitybackend.entities.equipment.weapons.Weapon
 import com.pessimisticit.scarcitybackend.entropy.LootableModifier
+import com.pessimisticit.scarcitybackend.images.GameIcon
+import com.pessimisticit.scarcitybackend.images.SvgIcon
 import java.net.URI
 import javax.persistence.Entity
 
@@ -16,8 +20,8 @@ import javax.persistence.Entity
     modifierTargets = [Equipment::class]
 )
 open class Heavy : Modifier() {
-    override val icon: URI
-        get() = URI("http://example.com")
+    override val icon
+        get() = SvgIcon(URI("$svgRoot/weight.svg"), Color.BRONZE.hex)
     override val description: String
         get() = "It is made of heavier material than one expects"
     override val name: String
@@ -35,9 +39,5 @@ open class Heavy : Modifier() {
 
     override fun modifyDurability(durability: Double): Double {
         return durability * 1.2
-    }
-
-    override fun modifyPrefix(prefix: String?): String {
-        return "heavy"
     }
 }

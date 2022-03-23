@@ -1,10 +1,8 @@
 package com.pessimisticit.scarcitybackend.entities.equipment.weapons.melee.swords.twohanded.peircing
 
 import com.pessimisticit.scarcitybackend.constants.Rarity
-import com.pessimisticit.scarcitybackend.entities.equipment.weapons.melee.swords.onehanded.peircing.PiercingOneHandedSword
 import com.pessimisticit.scarcitybackend.entities.equipment.weapons.melee.swords.onehanded.peircing.PiercingTwoHandedSword
 import com.pessimisticit.scarcitybackend.entropy.Lootable
-import java.net.URI
 import javax.persistence.Entity
 
 @Entity
@@ -13,8 +11,6 @@ import javax.persistence.Entity
     level = 20.0,
 )
 class Estoc : PiercingTwoHandedSword() {
-    override val icon: URI
-        get() = URI("https://todo.com")
     override val description: String
         get() = """
                 |a straight, edgeless, but sharply pointed blade.

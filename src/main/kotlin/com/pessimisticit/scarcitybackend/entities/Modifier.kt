@@ -26,7 +26,9 @@ abstract class Modifier : Displayable {
 
     open fun modifyDamageSpecifications(damageSpecifications: Sequence<DamageSpecification>) = damageSpecifications
     open fun modifySuffix(suffix: String?) = suffix
-    open fun modifyPrefix(prefix: String?) = prefix
+    open fun modifyPrefix(prefix: String?):String{
+        return name
+    }
     open fun modifyDurability(durability: Double) = durability
     open fun modifyWeight(weight: Double) = weight
     open fun modifySwingResetDuration(swingResetDuration: Long) = swingResetDuration

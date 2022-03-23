@@ -11,8 +11,6 @@ import javax.persistence.Entity
     level = 30.0,
 )
 open class Doppelhander : ChoppingTwoHandedSword() {
-    override val icon: URI
-        get() = URI("https://todo.com")
     override val description: String
         get() = """
                 |These swords represent the final stage in the trend of increasing size that started in the 14th century.

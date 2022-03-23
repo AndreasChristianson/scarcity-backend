@@ -2,7 +2,9 @@ package com.pessimisticit.scarcitybackend.entities.equipment.weapons.melee.sword
 
 import com.pessimisticit.scarcitybackend.constants.Rarity
 import com.pessimisticit.scarcitybackend.entropy.Lootable
-import com.pessimisticit.scarcitybackend.modifiers.Dazzling
+import com.pessimisticit.scarcitybackend.images.GameIcon
+import com.pessimisticit.scarcitybackend.images.PngIcon
+import com.pessimisticit.scarcitybackend.modifiers.fiery.Dazzling
 import java.net.URI
 import javax.persistence.Entity
 
@@ -12,15 +14,17 @@ import javax.persistence.Entity
     level = 15.0
 )
 class DazzlingLongSword : LongSword() {
-    override val icon: URI
-        get() = URI("https://todo.com")
+    override val icon: GameIcon
+        get() = PngIcon(URI("/static/png/weapons-1.png"), 18 * 32 to 7 * 32)
     override val description: String
         get() = """
-                        |Todo
-                    """.trimMargin()
+                |It shines and sears like the sun.
+                """.trimMargin()
     override val baseModifiers
         get() = sequenceOf(Dazzling())
 
     override val itemLevel: Double
         get() = 15.0
+    override val flavor: String?
+        get() = "There is in God, some say, a deep but dazzling darkness."
 }

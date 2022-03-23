@@ -3,9 +3,9 @@ package com.pessimisticit.scarcitybackend.entities.equipment.weapons.melee.sword
 
 import com.pessimisticit.scarcitybackend.constants.WeaponSlot
 import com.pessimisticit.scarcitybackend.entities.equipment.weapons.melee.swords.Sword
+import java.net.URI
 import javax.persistence.Entity
 
-@Entity
 abstract class OneHandedSword : Sword() {
     override val slot: WeaponSlot
         get() = WeaponSlot.ONE_HAND

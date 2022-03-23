@@ -3,7 +3,8 @@ package com.pessimisticit.scarcitybackend.mechanics.damage
 import com.pessimisticit.scarcitybackend.constants.MAX_DAMAGE_MULTIPLIER
 import com.pessimisticit.scarcitybackend.distributions.DistributionConfiguration
 import com.pessimisticit.scarcitybackend.distributions.TruncatedGaussianDistribution
-import java.net.URI
+import com.pessimisticit.scarcitybackend.images.GameIcon
+import com.pessimisticit.scarcitybackend.images.SvgIcon
 
 data class DamageSpecification(
     val damageType: DamageType,
@@ -24,6 +25,7 @@ data class DamageSpecification(
         )
     )
 
-    val icon: URI
-        get() = damageType.icon
+
+    val icon: GameIcon
+        get() = SvgIcon(damageShape.icon.uri, damageType.icon.color)
 }

@@ -11,11 +11,10 @@ import javax.persistence.Entity
     level = 15.0
 )
 open class LongSword : PiercingTwoHandedSword() {
-    override val icon: URI
-        get() = URI("https://todo.com")
     override val description: String
         get() = """
-                |Todo
+                |A sword with a cruciform hilt with a grip for two-handed use.
+                |The blade is strongly tapered with a flattened diamond cross-section.
                 """.trimMargin()
     override val name: String
         get() = "long sword"

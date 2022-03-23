@@ -12,7 +12,7 @@ import javax.persistence.Entity
 
 @Entity
 abstract class Weapon : Equipment() {
-    abstract val damageShape: DamageShape
+    protected abstract val damageShape: DamageShape
     abstract val slot: WeaponSlot
     protected abstract val baseRange: Double
     protected abstract val baseMinRange: Double
@@ -25,7 +25,7 @@ abstract class Weapon : Equipment() {
 
     protected open val dpsBudgetMultiplier: Double
         get() = 1.0
-    open val damageType: DamageType
+    protected open val damageType: DamageType
         get() = DamageType.PHYSICAL
     protected open val baseSwingResetDuration: Long
         get() = 1500

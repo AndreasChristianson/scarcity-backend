@@ -11,8 +11,6 @@ import javax.persistence.Entity
     level = 35.0,
 )
 class Flammenschwert : Doppelhander() {
-    override val icon: URI
-        get() = URI("https://todo.com")
     override val description: String
         get() = """
                 |A flame-bladed sword has a characteristically undulating style of blade. The design of the blade is
