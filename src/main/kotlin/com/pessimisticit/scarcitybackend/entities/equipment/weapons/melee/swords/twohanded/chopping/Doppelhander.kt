@@ -18,7 +18,7 @@ open class Doppelhander : ChoppingTwoHandedSword() {
                 |and therefore increased range and striking power.
                 """.trimMargin()
     override val name: String
-        get() = "Doppelhänder"
+        get() = "doppelhänder"
     override val itemLevel: Double
         get() = 30.0
     override val baseRange: Double

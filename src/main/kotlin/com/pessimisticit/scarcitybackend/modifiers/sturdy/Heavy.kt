@@ -6,10 +6,9 @@ import com.pessimisticit.scarcitybackend.constants.Rarity
 import com.pessimisticit.scarcitybackend.constants.svgRoot
 import com.pessimisticit.scarcitybackend.entities.Modifier
 import com.pessimisticit.scarcitybackend.entities.equipment.Equipment
-import com.pessimisticit.scarcitybackend.entities.equipment.weapons.Weapon
 import com.pessimisticit.scarcitybackend.entropy.LootableModifier
-import com.pessimisticit.scarcitybackend.images.GameIcon
 import com.pessimisticit.scarcitybackend.images.SvgIcon
+import com.pessimisticit.scarcitybackend.modifiers.broken.Flimsy
 import java.net.URI
 import javax.persistence.Entity
 
@@ -40,4 +39,7 @@ open class Heavy : Modifier() {
     override fun modifyDurability(durability: Double): Double {
         return durability * 1.2
     }
+
+    override fun modifyAcceptance(accept: Modifier): Boolean =
+        accept !is Flimsy
 }

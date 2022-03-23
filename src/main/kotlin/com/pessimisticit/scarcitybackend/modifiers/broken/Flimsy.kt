@@ -5,10 +5,8 @@ import com.pessimisticit.scarcitybackend.constants.ModifierType
 import com.pessimisticit.scarcitybackend.constants.Rarity
 import com.pessimisticit.scarcitybackend.entities.Modifier
 import com.pessimisticit.scarcitybackend.entities.equipment.Equipment
-import com.pessimisticit.scarcitybackend.entities.equipment.weapons.Weapon
 import com.pessimisticit.scarcitybackend.entropy.LootableModifier
-import com.pessimisticit.scarcitybackend.images.GameIcon
-import java.net.URI
+import com.pessimisticit.scarcitybackend.modifiers.sturdy.Heavy
 import javax.persistence.Entity
 
 @Entity
@@ -17,7 +15,7 @@ import javax.persistence.Entity
     modifierType = ModifierType.HARMFUL,
     modifierTargets = [Equipment::class]
 )
-open class Flimsy : Broken() {
+open class Flimsy : Fragile() {
     override val icon
         get() = super.icon.withColor(Color.SILVER.hex)
     override val description: String
@@ -31,5 +29,9 @@ open class Flimsy : Broken() {
 
     override fun modifyWeight(weight: Double): Double {
         return weight * 0.9
+    }
+
+    override fun modifyAcceptance(accept: Modifier): Boolean {
+        return accept !is Heavy
     }
 }

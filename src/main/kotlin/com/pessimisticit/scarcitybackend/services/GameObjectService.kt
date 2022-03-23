@@ -41,10 +41,12 @@ class GameObjectService(
         gameObject: T,
         modifier: Modifier
     ): T {
-        modifier.parent = gameObject
-        gameObject.modifiers.add(modifier)
-        modifierRepository.save(modifier)
-        changeService.modifierAdded(gameObject, modifier)
+        if(gameObject.acceptModifier(modifier)){
+            modifier.parent = gameObject
+            gameObject.modifiers.add(modifier)
+            modifierRepository.save(modifier)
+            changeService.modifierAdded(gameObject, modifier)
+        }
         return gameObject
     }
 }

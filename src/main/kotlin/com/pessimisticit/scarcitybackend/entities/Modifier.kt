@@ -1,12 +1,10 @@
 package com.pessimisticit.scarcitybackend.entities
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.pessimisticit.scarcitybackend.abilities.Ability
 import com.pessimisticit.scarcitybackend.interfaces.Displayable
 import com.pessimisticit.scarcitybackend.mechanics.damage.DamageSpecification
-import org.springframework.hateoas.RepresentationModel
 import java.util.*
 import javax.persistence.*
 
@@ -26,15 +24,18 @@ abstract class Modifier : Displayable {
 
     open fun modifyDamageSpecifications(damageSpecifications: Sequence<DamageSpecification>) = damageSpecifications
     open fun modifySuffix(suffix: String?) = suffix
-    open fun modifyPrefix(prefix: String?):String{
+    open fun modifyPrefix(prefix: String?): String {
         return name
     }
+
     open fun modifyDurability(durability: Double) = durability
     open fun modifyWeight(weight: Double) = weight
     open fun modifySwingResetDuration(swingResetDuration: Long) = swingResetDuration
     open fun modifyDps(dps: Double) = dps
     open fun modifyAbilities(abilities: Sequence<Ability>): Sequence<Ability> = abilities
+    open fun modifyAcceptance(accept: Modifier): Boolean = true
     override fun toString(): String {
         return "$name ($id)"
     }
+
 }

@@ -1,6 +1,8 @@
 package com.pessimisticit.scarcitybackend.entities.equipment.weapons.melee.swords.onehanded.peircing
 
 import com.pessimisticit.scarcitybackend.constants.Rarity
+import com.pessimisticit.scarcitybackend.constants.Tag
+import com.pessimisticit.scarcitybackend.entities.Modifier
 import com.pessimisticit.scarcitybackend.entropy.Lootable
 import com.pessimisticit.scarcitybackend.images.GameIcon
 import com.pessimisticit.scarcitybackend.images.PngIcon
@@ -11,7 +13,8 @@ import javax.persistence.Entity
 @Entity
 @Lootable(
     rarity = Rarity.EXTRAORDINARY,
-    level = 15.0
+    level = 15.0,
+    tags = [Tag.UNRAND]
 )
 class DazzlingLongSword : LongSword() {
     override val icon: GameIcon
@@ -27,4 +30,6 @@ class DazzlingLongSword : LongSword() {
         get() = 15.0
     override val flavor: String?
         get() = "There is in God, some say, a deep but dazzling darkness."
+
+    override fun acceptModifier(modifier: Modifier) = false
 }

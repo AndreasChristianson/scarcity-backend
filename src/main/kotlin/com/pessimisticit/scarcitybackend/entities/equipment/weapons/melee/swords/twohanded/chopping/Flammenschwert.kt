@@ -17,7 +17,7 @@ class Flammenschwert : Doppelhander() {
                 |decorative along with being functional by causing unpleasant vibrations while parrying
                 """.trimMargin()
     override val name: String
-        get() = "Flammenschwert"
+        get() = "flammenschwert"
     override val itemLevel: Double
         get() = 35.0
     override val baseRange: Double
