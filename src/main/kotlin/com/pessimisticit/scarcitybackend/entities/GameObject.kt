@@ -1,13 +1,8 @@
 package com.pessimisticit.scarcitybackend.entities
 
-import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonManagedReference
 import com.pessimisticit.scarcitybackend.entities.changes.Change
 import com.pessimisticit.scarcitybackend.interfaces.Displayable
-import org.hibernate.annotations.Fetch
-import org.hibernate.annotations.FetchMode
 import org.springframework.hateoas.RepresentationModel
 import java.util.*
 import javax.persistence.*
@@ -48,13 +43,14 @@ abstract class GameObject : Displayable, RepresentationModel<GameObject>() {
     protected open val baseModifiers: Sequence<Modifier>
         get() = sequenceOf()
 
-    fun <T> applyModifiers(value: T, funct: (Modifier, T) -> T): T =
+    fun <T> applyModifiers(value: T, funct: (Modifier, T) -> T) =
         (modifiers.asSequence().sortedBy { it.priority } + baseModifiers)
             .fold(value) { acc, mod -> funct.invoke(mod, acc) }
 
-    override fun toString(): String {
-        return "$displayName ($id)"
-    }
+    override fun toString() = "$displayName ($id)"
+
+    open fun acceptModifier(modifier: Modifier) =
+        applyModifiers(true) { nextModifier, lastResult -> lastResult && nextModifier.modifyAcceptance(modifier) }
 
     val displayName
         get() = sequenceOf(prefix, name, suffix)

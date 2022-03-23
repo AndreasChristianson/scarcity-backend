@@ -1,12 +1,12 @@
-package com.pessimisticit.scarcitybackend.modifiers
+package com.pessimisticit.scarcitybackend.modifiers.broken
 
+import com.pessimisticit.scarcitybackend.constants.Color
 import com.pessimisticit.scarcitybackend.constants.ModifierType
 import com.pessimisticit.scarcitybackend.constants.Rarity
 import com.pessimisticit.scarcitybackend.entities.Modifier
 import com.pessimisticit.scarcitybackend.entities.equipment.Equipment
-import com.pessimisticit.scarcitybackend.entities.equipment.weapons.Weapon
 import com.pessimisticit.scarcitybackend.entropy.LootableModifier
-import java.net.URI
+import com.pessimisticit.scarcitybackend.modifiers.sturdy.Heavy
 import javax.persistence.Entity
 
 @Entity
@@ -15,15 +15,13 @@ import javax.persistence.Entity
     modifierType = ModifierType.HARMFUL,
     modifierTargets = [Equipment::class]
 )
-open class Flimsy : Modifier() {
-    override val icon: URI
-        get() = URI("http://example.com")
+open class Flimsy : Fragile() {
+    override val icon
+        get() = super.icon.withColor(Color.SILVER.hex)
     override val description: String
-        get() = "It feels light and fragile"
+        get() = "It feels light and weak"
     override val name: String
         get() = "flimsy"
-    override val priority: Double
-        get() = 0.0
 
     override fun modifyDps(dps: Double): Double {
         return dps * 0.9
@@ -33,11 +31,7 @@ open class Flimsy : Modifier() {
         return weight * 0.9
     }
 
-    override fun modifyDurability(durability: Double): Double {
-        return durability * 0.8
-    }
-
-    override fun modifyPrefix(prefix: String?): String {
-        return "flimsy"
+    override fun modifyAcceptance(accept: Modifier): Boolean {
+        return accept !is Heavy
     }
 }

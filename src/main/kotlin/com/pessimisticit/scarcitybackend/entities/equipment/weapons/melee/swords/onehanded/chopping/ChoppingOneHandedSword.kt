@@ -6,10 +6,10 @@ import com.pessimisticit.scarcitybackend.mechanics.damage.DamageShape
 import java.net.URI
 import javax.persistence.Entity
 
-abstract class PiercingOneHandedSword : OneHandedSword() {
+abstract class ChoppingOneHandedSword : OneHandedSword() {
     override val damageShape: DamageShape
-        get() = DamageShape.PIERCING
+        get() = DamageShape.CHOPPING
     override val iconUri: URI
-        get() = URI("$svgRoot/sword-wound.svg")
+        get() = URI("$svgRoot/croc-sword.svg")
 }
 

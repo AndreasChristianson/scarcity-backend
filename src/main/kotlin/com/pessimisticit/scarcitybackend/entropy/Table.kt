@@ -13,14 +13,16 @@ class Table<T>(
 
     private val cleaned by lazy {
         table
-            .sortedBy { (it.level.sign + 2.0) * it.rarity.relativeWeight }
+            .sortedWith(compareBy(
+                { it.level.sign * -1 },
+                { it.rarity.relativeWeight }
+            ))
             .toList()
+            .asReversed()
     }
 
     private val totalRarity: Double by lazy {
-        cleaned
-            .map { it.rarity.relativeWeight }
-            .sum()
+        cleaned.sumOf { it.rarity.relativeWeight }
     }
 
     fun filter(
@@ -29,7 +31,7 @@ class Table<T>(
         return Table(table = this.table.filter { predicate(it) })
     }
 
-    fun selectGenerator(
+    private fun selectGenerator(
         randomDoubleFunction: (Double) -> Double
     ): ItemGenerator<out T>? {
         val target = randomDoubleFunction.invoke(totalRarity)
@@ -60,7 +62,7 @@ class Table<T>(
     }
 }
 
-fun <T> Table<T>.filterByItemLevel(min: Double, max: Double): Table<T> =
+fun <T> Table<T>.filterByItemLevel(min: Double = -1000.0, max: Double = 1000.0): Table<T> =
     this.filter { it.level in min..max }
 
 fun <T> Table<T>.filterByTag(tag: Tag?): Table<T> =

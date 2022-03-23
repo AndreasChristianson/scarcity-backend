@@ -7,5 +7,6 @@ enum class Tag {
     ANCIENT,
     RELIGIOUS,
     EUROPEAN,
-    PREHISTORIC
+    PREHISTORIC,
+    UNRAND,
 }

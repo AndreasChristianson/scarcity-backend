@@ -3,7 +3,6 @@ package com.pessimisticit.scarcitybackend.entities.equipment.weapons.melee.sword
 import com.pessimisticit.scarcitybackend.constants.Rarity
 import com.pessimisticit.scarcitybackend.constants.Tag
 import com.pessimisticit.scarcitybackend.entropy.Lootable
-import java.net.URI
 import javax.persistence.Entity
 
 @Entity
@@ -13,8 +12,6 @@ import javax.persistence.Entity
     level = 10.0,
 )
 class Gladius : PiercingOneHandedSword() {
-    override val icon: URI
-        get() = URI("https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Uncrossed_gladius.jpg/240px-Uncrossed_gladius.jpg")
     override val description: String
         get() = """
                         |A two-edged sword with a tapered point for stabbing during thrusting.

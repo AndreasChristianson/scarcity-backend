@@ -3,7 +3,6 @@ package com.pessimisticit.scarcitybackend.entities.equipment.weapons.melee
 import com.pessimisticit.scarcitybackend.entities.equipment.weapons.Weapon
 import javax.persistence.Entity
 
-@Entity
 abstract class MeleeWeapon : Weapon() {
     override val baseMinRange: Double
         get() = 0.0
