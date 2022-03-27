@@ -14,7 +14,7 @@ class KnightlySword : PiercingOneHandedSword() {
         get() = """
                 |A straight, double-edged weapon with a single-handed, cruciform hilt
                 """.trimMargin()
-    override val name: String
+    override val baseName: String
         get() = "knightly sword"
     override val itemLevel: Double
         get() = 15.0

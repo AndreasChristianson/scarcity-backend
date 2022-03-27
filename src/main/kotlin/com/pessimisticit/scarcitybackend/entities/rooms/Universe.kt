@@ -15,7 +15,7 @@ class Universe : GameObject() {
     override val description: String
         get() = "A container for all games, and orphaned objects."
 
-    override val name: String
+    override val baseName: String
         get() = "The Universe"
     override val flavor: String
         get() = """

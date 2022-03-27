@@ -16,7 +16,7 @@ class Estoc : PiercingTwoHandedSword() {
                 |a straight, edgeless, but sharply pointed blade.
                 |It is noted for its ability to pierce mail armor.
                 """.trimMargin()
-    override val name: String
+    override val baseName: String
         get() = "Estoc"
     override val itemLevel: Double
         get() = 20.0

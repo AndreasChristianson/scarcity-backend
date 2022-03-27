@@ -17,7 +17,7 @@ open class Doppelhander : ChoppingTwoHandedSword() {
                 |They acquired the characteristics of a polearm rather than a sword due to their large size and weight 
                 |and therefore increased range and striking power.
                 """.trimMargin()
-    override val name: String
+    override val baseName: String
         get() = "doppelhänder"
     override val itemLevel: Double
         get() = 30.0

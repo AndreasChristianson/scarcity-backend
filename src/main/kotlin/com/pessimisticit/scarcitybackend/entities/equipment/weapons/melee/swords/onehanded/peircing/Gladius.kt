@@ -18,7 +18,7 @@ class Gladius : PiercingOneHandedSword() {
                         |A solid grip is provided by a knobbed hilt with ridges for the fingers.
                         |The previous owner's name is engraved on the blade.
                     """.trimMargin()
-    override val name: String
+    override val baseName: String
         get() = "gladius"
     override val itemLevel: Double
         get() = 10.0

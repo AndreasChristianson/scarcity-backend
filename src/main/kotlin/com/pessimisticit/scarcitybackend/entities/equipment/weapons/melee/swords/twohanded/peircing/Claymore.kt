@@ -15,7 +15,7 @@ class Claymore : PiercingTwoHandedSword() {
         get() = """
                 |A Scottish two-handed sword with a cross hilt of forward-sloping quillons with quatrefoil terminations.
                 """.trimMargin()
-    override val name: String
+    override val baseName: String
         get() = "claymore"
     override val itemLevel: Double
         get() = 25.0

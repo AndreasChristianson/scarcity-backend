@@ -16,7 +16,7 @@ open class LongSword : PiercingTwoHandedSword() {
                 |A sword with a cruciform hilt with a grip for two-handed use.
                 |The blade is strongly tapered with a flattened diamond cross-section.
                 """.trimMargin()
-    override val name: String
+    override val baseName: String
         get() = "long sword"
     override val itemLevel: Double
         get() = 15.0

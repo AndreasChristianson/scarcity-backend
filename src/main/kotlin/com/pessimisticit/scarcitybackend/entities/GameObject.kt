@@ -46,14 +46,15 @@ abstract class GameObject : Displayable, RepresentationModel<GameObject>() {
     fun <T> applyModifiers(value: T, funct: (Modifier, T) -> T) =
         (modifiers.asSequence().sortedBy { it.priority } + baseModifiers)
             .fold(value) { acc, mod -> funct.invoke(mod, acc) }
+    abstract val baseName: String
 
-    override fun toString() = "$displayName ($id)"
+    override fun toString() = "$baseName ($id)"
 
     open fun acceptModifier(modifier: Modifier) =
         applyModifiers(true) { nextModifier, lastResult -> lastResult && nextModifier.modifyAcceptance(modifier) }
 
-    val displayName
-        get() = sequenceOf(prefix, name, suffix)
+    final override val name
+        get() = sequenceOf(prefix, baseName, suffix)
             .filterNotNull()
             .joinToString(" ")
 

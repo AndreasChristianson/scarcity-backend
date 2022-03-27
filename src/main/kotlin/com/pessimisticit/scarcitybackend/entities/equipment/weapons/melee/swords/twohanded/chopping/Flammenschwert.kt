@@ -16,7 +16,7 @@ class Flammenschwert : Doppelhander() {
                 |A flame-bladed sword has a characteristically undulating style of blade. The design of the blade is
                 |decorative along with being functional by causing unpleasant vibrations while parrying
                 """.trimMargin()
-    override val name: String
+    override val baseName: String
         get() = "flammenschwert"
     override val itemLevel: Double
         get() = 35.0

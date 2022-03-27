@@ -15,6 +15,11 @@ class SvgIcon(
 
 class PngIcon(
     uri: URI,
-    val offset: Pair<Int, Int>,
-    val size: Pair<Int, Int> = 32 to 32,
+    val offset: Position<Int>,
+    val size: Position<Int> = Position(32, 32),
 ) : GameIcon(uri)
+
+data class Position<T>(
+    val x: T,
+    val y: T,
+)
