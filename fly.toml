@@ -10,9 +10,9 @@ processes = []
   allowed_public_ports = []
   auto_rollback = true
 
-[[statics]]
-  guest_path = "/app/static"
-  url_prefix = "/static"
+# [[statics]]
+#   guest_path = "/app/static"
+#   url_prefix = "/static"
 
 [[services]]
   internal_port = 8080
