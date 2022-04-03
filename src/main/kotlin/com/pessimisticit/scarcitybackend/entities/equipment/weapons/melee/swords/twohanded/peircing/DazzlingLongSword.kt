@@ -2,6 +2,7 @@ package com.pessimisticit.scarcitybackend.entities.equipment.weapons.melee.sword
 
 import com.pessimisticit.scarcitybackend.constants.Rarity
 import com.pessimisticit.scarcitybackend.constants.Tag
+import com.pessimisticit.scarcitybackend.constants.pngRoot
 import com.pessimisticit.scarcitybackend.entities.Modifier
 import com.pessimisticit.scarcitybackend.entropy.Lootable
 import com.pessimisticit.scarcitybackend.images.GameIcon
@@ -19,7 +20,7 @@ import javax.persistence.Entity
 )
 class DazzlingLongSword : LongSword() {
     override val icon: GameIcon
-        get() = PngIcon(URI("/static/png/weapons-1.png"), Position(18 * 32, 7 * 32))
+        get() = PngIcon(URI("$pngRoot/weapons-1.png"), Position(18 * 32, 7 * 32))
     override val description: String
         get() = """
                 |It shines and sears like the sun.
