@@ -6,7 +6,7 @@ import com.pessimisticit.scarcitybackend.entropy.GenerationProfile
 import com.pessimisticit.scarcitybackend.entropy.filterByItemLevel
 import com.pessimisticit.scarcitybackend.entropy.filterByTag
 import org.springframework.stereotype.Service
-import javax.transaction.Transactional
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class WeaponService(

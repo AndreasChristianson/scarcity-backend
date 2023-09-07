@@ -4,9 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.support.JpaEntityInformation
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository
 import org.springframework.data.repository.NoRepositoryBean
+import org.springframework.transaction.annotation.Transactional
 import java.io.Serializable
 import javax.persistence.EntityManager
-import javax.transaction.Transactional
 
 @NoRepositoryBean
 interface EnhancedRepository<T, ID : Serializable> : JpaRepository<T, ID> {
